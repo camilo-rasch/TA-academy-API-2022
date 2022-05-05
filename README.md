@@ -1,4 +1,10 @@
 # API Automation
+
+#Daniel Gonzalez
+
+Steps to run the application:
+
+1.
   
 INSTALL FRAMEWORK
 
