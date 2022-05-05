@@ -2,7 +2,7 @@
   
 INSTALL FRAMEWORK
 
-1. git clone https://github.com/juan-montes-globant/APIAutomationAcademyQC2020.git
+1. git clone https://github.com/camilo-rasch/TA-academy-API-2022
 2. mvn clean install -DskipTests
 3. mvn eclipse:eclipse or mvn idea:idea
 
