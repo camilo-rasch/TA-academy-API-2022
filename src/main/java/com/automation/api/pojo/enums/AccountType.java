@@ -1,13 +1,18 @@
 package com.automation.api.pojo.enums;
 
+import lombok.Getter;
+import lombok.ToString;
+
+@Getter
+@ToString
 public enum AccountType {
-    CURRENT,
-    SAVINGS,
-    SALARY,
-    FIXED_DEPOSIT,
-    RECURRING_DEPOSIT,
-    NRI,
-    NRO,
-    NRE,
-    FCNR
+    CURRENT ("current"),
+    SAVINGS ("savings");
+
+    private final String value;
+
+    AccountType(String value) {
+        this.value = value;
+    }
+
 }

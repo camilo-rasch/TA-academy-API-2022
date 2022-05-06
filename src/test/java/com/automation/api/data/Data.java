@@ -20,7 +20,7 @@ public class Data {
     }
 
     /**
-     * This is the mock user for the bank test API
+     * This is the mock user for the bank test API, if you want random data use the DataProvider in RandomData.java
      * @return the user  Jaimito
      */
     @DataProvider(name = "bank user")
@@ -30,7 +30,7 @@ public class Data {
                 .last_name("El Calvito")
                 .account_number("123456-12345-12")
                 .amount(100_000_000)
-                .account_type(AccountType.SAVINGS)
+                .account_type(AccountType.CURRENT)
                 .email("jaimitoelcalvito@gmail.com")
                 .active(true)
                 .country("Colombia")

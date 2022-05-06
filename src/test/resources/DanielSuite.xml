@@ -3,8 +3,8 @@
 
 <suite name="example test suite" verbose="1">
     <parameter name="uri" value="https://6273f281345e1821b224c745.mockapi.io/api/v1"/>
-    <parameter name="name" value="Madelyn Jones"/>
-    <parameter name="email" value="made@gmail.com"/>
+    <parameter name="id" value="1"/>
+    <parameter name="account number" value="this-change-worked"/>
     <test thread-count="1" name="example run">
         <classes>
             <class name="com.automation.api.tests.BankTest"/>
