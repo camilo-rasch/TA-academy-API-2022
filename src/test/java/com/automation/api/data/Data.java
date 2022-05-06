@@ -19,6 +19,10 @@ public class Data {
         return new Object[][] {{carla}};
     }
 
+    /**
+     * This is the mock user for the bank test API
+     * @return the user  Jaimito
+     */
     @DataProvider(name = "bank user")
     public Object[][] randomBankUser() {
         BankUser jaimito = BankUser.builder()

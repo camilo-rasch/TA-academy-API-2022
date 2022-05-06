@@ -11,6 +11,7 @@ import lombok.*;
 @Builder
 public class BankUser {
 
+
     private Long id;
 
     private  String first_name;

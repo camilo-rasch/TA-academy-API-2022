@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="example test suite" verbose="1">
+    <parameter name="uri" value="https://6273f281345e1821b224c745.mockapi.io/api/v1"/>
+    <parameter name="name" value="Madelyn Jones"/>
+    <parameter name="email" value="made@gmail.com"/>
+    <test thread-count="1" name="example run">
+        <classes>
+            <class name="com.automation.api.tests.BankTest"/>
+        </classes>
+    </test> <!-- Test -->
+
+</suite> <!-- Suite -->
