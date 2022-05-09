@@ -18,4 +18,4 @@
 
 ### Notes:
 
-1. A random initial data method was created, this was done in order to allow to run all the methods with some users already in the database each time the test is ran
+1. A random initial data method was created, this was done in order to allow to run all the tests with some users already in the database each time the suite is ran
