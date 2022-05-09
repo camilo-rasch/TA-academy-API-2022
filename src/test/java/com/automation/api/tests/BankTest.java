@@ -28,6 +28,7 @@ public class BankTest {
             BankUser user = randomData.RandomBankUser();
             base.createNewBankUser(user);
             assertEquals(base.getStatusCode(), 201, "Status code is not correct");
+            logger.info("random user Nº " + i + " " + user.toString());
         }
     }
 
@@ -38,7 +39,7 @@ public class BankTest {
         base.getBankUsersEndpoint();
     }
 
-//    @Test(description = "Verify that endpoint is empty, otherwise clear it", priority = 1)
+    @Test(description = "Verify that endpoint is empty, otherwise clear it", priority = 1)
     public void cleanBankUsers() {
         logger.info("Retrieving all bank users");
         List<BankUser> userList = base.getAllBankUsers();
@@ -85,8 +86,9 @@ public class BankTest {
         logger.info("Retrieving user information");
         BankUser user = base.getBankUserById(id);
         assertEquals(base.getStatusCode(), 200, "Status code is not correct");
-        logger.info("Update user information");
+        logger.info("Update user information account number");
         base.updateBankUser(user, accountNumber);
         assertEquals(base.getStatusCode(), 200, "Status code is not correct");
+        base.getBankUserById(id);
     }
 }
