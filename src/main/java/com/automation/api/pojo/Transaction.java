@@ -5,6 +5,7 @@ package com.automation.api.pojo;
  * @author js.lozano
  */
 public class Transaction {
+
     private String id;
     private String firstName;
     private String lastName;
@@ -15,6 +16,11 @@ public class Transaction {
     private boolean active;
     private String country;
     private long telephone;
+
+    /**
+     * Constructor
+     */
+    public Transaction(){}
 
     /**
      * Constructor
@@ -201,4 +207,21 @@ public class Transaction {
     public void setTelephone(long telephone) {
         this.telephone = telephone;
     }
+
+    @Override
+    public String toString() {
+        return "Transaction{" +
+                "id='" + id + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", accountNumber=" + accountNumber +
+                ", amount=" + amount +
+                ", transactionType='" + transactionType + '\'' +
+                ", email='" + email + '\'' +
+                ", active=" + active +
+                ", country='" + country + '\'' +
+                ", telephone=" + telephone +
+                '}';
+    }
 }
+
