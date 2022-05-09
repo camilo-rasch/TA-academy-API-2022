@@ -4,9 +4,7 @@ import com.automation.api.data.RandomData;
 import com.automation.api.pojo.BankUser;
 import com.automation.api.steps.BankAPIBase;
 import org.apache.log4j.Logger;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Parameters;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 
 import static org.testng.Assert.*;
 
@@ -19,6 +17,20 @@ public class BankTest {
 
     private final Logger logger = Logger.getLogger(BankTest.class);
 
+    @BeforeTest
+    @Parameters({"uri"})
+    public void fillingDataBaseWithRandomUsers(String uri) {
+        //Adding 10 new random users to the database
+        RandomData randomData = new RandomData();
+        base = new BankAPIBase(uri);
+        base.getBankUsersEndpoint();
+        for (int i = 0; i < 10; i++) {
+            BankUser user = randomData.RandomBankUser();
+            base.createNewBankUser(user);
+            assertEquals(base.getStatusCode(), 201, "Status code is not correct");
+        }
+    }
+
     @BeforeMethod
     @Parameters({"uri"})
     public void test(String uri){
@@ -26,7 +38,7 @@ public class BankTest {
         base.getBankUsersEndpoint();
     }
 
-    @Test(description = "Verify that endpoint is empty, otherwise clear it", priority = 1)
+//    @Test(description = "Verify that endpoint is empty, otherwise clear it", priority = 1)
     public void cleanBankUsers() {
         logger.info("Retrieving all bank users");
         List<BankUser> userList = base.getAllBankUsers();
@@ -42,7 +54,7 @@ public class BankTest {
         }
     }
 
-    @Test(description = "check that there are not repeated emails then post a new user",  dataProviderClass = RandomData.class, dataProvider = "bank user")
+    @Test(description = "check that there are not repeated emails then post a new user",  dataProviderClass = RandomData.class, dataProvider = "randomBankUserDataProvider")
     public void createNewUser(BankUser user) {
         logger.info("Retrieving all bank user emails");
         List<String> emailList = base.getAllBankUsersEmail();
