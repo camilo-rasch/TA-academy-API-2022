@@ -37,7 +37,16 @@ public class Data {
             transactions.add(transaction);
         }
         return new Object[][]{{transactions}};
+    }
 
+    /**
+     * Provide a random account number
+     * @return Object[][]
+     */
+    @DataProvider(name = "accountNumber")
+    public Object[][] inputAccountNumber(){
+        long randomAccountNumber = generateRandomLong();
+        return new Object[][]{{randomAccountNumber}};
     }
 
     /**

@@ -4,7 +4,6 @@ import com.automation.api.steps.Transactions;
 import org.apache.log4j.Logger;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Parameters;
 
 public class BaseTest {
@@ -17,7 +16,6 @@ public class BaseTest {
     public void setUp(String uri){
         log.info("Uri: " + uri);
         transactions_steps = new Transactions(uri);
-
     }
 
     @BeforeMethod(groups = {"withDeleteTransactions"})

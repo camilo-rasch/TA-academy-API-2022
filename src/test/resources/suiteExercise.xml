@@ -21,6 +21,7 @@
         </groups>
         <classes>
             <class name="com.automation.api.tests.GetTest"/>
+            <class name="com.automation.api.tests.PutTest"/>
         </classes>
     </test>
 </suite>

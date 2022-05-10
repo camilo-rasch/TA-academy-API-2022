@@ -104,6 +104,16 @@ public class Transactions extends BaseStep {
     }
 
     /**
+     * UPDATE method. Update account number in transaction
+     * @param id String
+     * @param transaction {@link Transaction}
+     */
+    public void updateTransaction(String id ,Transaction transaction){
+        response = given().contentType(ContentType.JSON).body(transaction)
+                .when().put(endpoint + id);
+    }
+
+    /**
      * True if there are repeated emails, false otherwise.
      * @return boolean
      */
@@ -135,9 +145,32 @@ public class Transactions extends BaseStep {
         log.info(transactions);
     }
 
+    /**
+     * Amount of transactions in the endpoint
+     * @return int
+     */
     public int amountOfTransactionsInEndpoint(){
         List<Transaction> transactions = response.then().extract().response()
                 .jsonPath().getList("$", Transaction.class);
         return transactions.size();
+    }
+
+    /**
+     * Get last transaction id in the endpoint
+     * @return String
+     */
+    public String getLastTransactionId(){
+        List<Transaction> transactions = response.then().extract().response()
+                .jsonPath().getList("$", Transaction.class);
+
+        return transactions.get(transactions.size() - 1).getId();
+    }
+
+    /**
+     * Get transaction response after GET request by id
+     * @return {@link Transaction}
+     */
+    public Transaction getTransactionResponse(){
+        return response.then().extract().as(Transaction.class);
     }
 }
