@@ -6,6 +6,7 @@
         <classes>
             <class name="com.automation.api.tests.EndpointEmptyTest"/>
             <class name="com.automation.api.tests.PostTest"/>
+            <class name="com.automation.api.tests.GetTest"/>
         </classes>
     </test>
 </suite>
