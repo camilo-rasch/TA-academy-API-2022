@@ -112,4 +112,14 @@ public class Transactions extends BaseStep {
 
         return !(emails.size() == nonRepeatedEmails.size());
     }
+
+    /**
+     * Amount of transactions in endpoint
+     * @return int
+     */
+    public int amountOfTransactionsInEndpoint(){
+        List<Transaction> transactions = response.then().extract().response()
+                .jsonPath().getList("$", Transaction.class);
+        return transactions.size();
+    }
 }
