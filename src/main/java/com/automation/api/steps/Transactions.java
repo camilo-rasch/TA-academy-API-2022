@@ -50,11 +50,12 @@ public class Transactions extends BaseStep {
     }
 
     /**
-     * Delete all transactions
+     * Delete all transactions in endpoint
      */
     @Override
     public void deleteEndpoint() {
         this.getTransactions();
+        this.showActualTransactionsList();
         List<Transaction> transactions = response.then().extract().response()
                 .jsonPath().getList("$", Transaction.class);
 
@@ -114,12 +115,19 @@ public class Transactions extends BaseStep {
     }
 
     /**
-     * Amount of transactions in endpoint
-     * @return int
+     * Return message "Not Found" if endpoint is empty
+     * @return String
      */
-    public int amountOfTransactionsInEndpoint(){
+    public String getEndpointEmptyMessage(){
+        return response.then().extract().asString();
+    }
+
+    /**
+     * Show in console list of transactions
+     */
+    public void showActualTransactionsList(){
         List<Transaction> transactions = response.then().extract().response()
                 .jsonPath().getList("$", Transaction.class);
-        return transactions.size();
+        log.info(transactions);
     }
 }

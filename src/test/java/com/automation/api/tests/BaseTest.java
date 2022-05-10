@@ -13,9 +13,9 @@ public class BaseTest {
     @BeforeMethod
     @Parameters({"uri"})
     public void deleteEndpoint(String uri){
+        log.info("Uri: " + uri);
         transactions_steps = new Transactions(uri);
         transactions_steps.deleteEndpoint();
         log.info("Deleted endpoint");
     }
-
 }
