@@ -134,4 +134,10 @@ public class Transactions extends BaseStep {
                 .jsonPath().getList("$", Transaction.class);
         log.info(transactions);
     }
+
+    public int amountOfTransactionsInEndpoint(){
+        List<Transaction> transactions = response.then().extract().response()
+                .jsonPath().getList("$", Transaction.class);
+        return transactions.size();
+    }
 }
