@@ -20,6 +20,10 @@ public class Data {
         return new Object[][] {{inputData}};
     }
 
+    /**
+     * Generate random data
+     * @return String
+     */
     public String fakeDataString(){
         int leftLimit = 97; // letter 'a'
         int rightLimit = 122; // letter 'z'
@@ -32,15 +36,27 @@ public class Data {
         return generatedString;
     }
 
+    /**
+     * Generate random status
+     * @return boolean
+     */
     public Boolean fakeStatus(){
         return random.nextBoolean();
     }
 
+    /**
+     * Generate random number
+     * @return String
+     */
     public String fakeNumber(){
         int randomNumber = random.nextInt(99999999);
         return String.format("%08d",randomNumber);
     }
 
+    /**
+     * Generate random transaction type choose between 4
+     * @return String
+     */
     public String fakeTransactionType(){
         String[] transactionsTypes = {"payment", "withdrawal", "deposit","invoice"};
         int randomChoice = random.nextInt(transactionsTypes.length);

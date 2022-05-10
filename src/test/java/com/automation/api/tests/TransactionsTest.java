@@ -23,7 +23,7 @@ public class TransactionsTest {
     }
 
 
-    @Test(description = "add transactions", dataProviderClass = Data.class, dataProvider = "transactions", priority = 1)
+    @Test(description = "Add transactions", dataProviderClass = Data.class, dataProvider = "transactions", priority = 1)
     public void addTransactions(HashMap<String, Transaction> transactionHashMap){
         transactions.getTransactionEndpoint();
         transactions.checkIfDuplicates(new ArrayList<>(transactionHashMap.values()));
@@ -37,7 +37,7 @@ public class TransactionsTest {
         }
     }
 
-    @Test(description = "check no duplicates emails", priority = 2)
+    @Test(description = "Check no duplicates emails", priority = 2)
     public void checkNoDuplicates(){
         transactions.getTransactionEndpoint();
         transactions.getTransactions();
@@ -66,7 +66,7 @@ public class TransactionsTest {
         Assert.assertEquals(transactions.getTransactionResponse().getAccountNumber(),  fakeNewString, "Account Number is not correct");
     }
 
-    @Test(description = "verify endpoint is empty", priority = 4)
+    @Test(description = "Verify endpoint is empty", priority = 4)
     public void verifyEndPointIsEmpty(){
         transactions.getTransactionEndpoint();
         transactions.getTransactions();
