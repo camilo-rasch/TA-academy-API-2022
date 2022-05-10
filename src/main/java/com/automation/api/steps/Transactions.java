@@ -55,14 +55,18 @@ public class Transactions extends BaseStep {
     @Override
     public void deleteEndpoint() {
         this.getTransactions();
-        this.showActualTransactionsList();
-        List<Transaction> transactions = response.then().extract().response()
-                .jsonPath().getList("$", Transaction.class);
+        log.info(getStatusCode());
 
-        List<String> transactionsId = new ArrayList<>();
-        transactions.forEach(transaction-> transactionsId.add(transaction.getId()));
-        for (String id : transactionsId) {
-            deleteTransaction(id);
+        if (getStatusCode() == 200){
+            this.showActualTransactionsList();
+            List<Transaction> transactions = response.then().extract().response()
+                    .jsonPath().getList("$", Transaction.class);
+
+            List<String> transactionsId = new ArrayList<>();
+            transactions.forEach(transaction-> transactionsId.add(transaction.getId()));
+            for (String id : transactionsId) {
+                deleteTransaction(id);
+            }
         }
     }
 

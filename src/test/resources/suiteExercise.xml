@@ -5,6 +5,7 @@
     <test name="example run">
         <classes>
             <class name="com.automation.api.tests.EndpointEmptyTest"/>
+            <class name="com.automation.api.tests.PostTest"/>
         </classes>
     </test>
 </suite>

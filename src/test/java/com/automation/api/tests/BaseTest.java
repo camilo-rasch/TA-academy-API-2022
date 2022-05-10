@@ -10,7 +10,7 @@ public class BaseTest {
     public Logger log = Logger.getLogger(BaseTest.class);
     protected Transactions transactions_steps;
 
-    @BeforeMethod
+    @BeforeMethod(alwaysRun = true)
     @Parameters({"uri"})
     public void deleteEndpoint(String uri){
         log.info("Uri: " + uri);
