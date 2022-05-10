@@ -2,7 +2,7 @@ package com.automation.api.steps;
 
 import io.restassured.response.Response;
 
-public class BaseStep {
+public abstract class BaseStep {
 
     protected final String endpoint;
     protected Response response;
@@ -19,5 +19,5 @@ public class BaseStep {
         return response.getStatusCode();
     }
 
-
+    public abstract void deleteEndpoint();
 }

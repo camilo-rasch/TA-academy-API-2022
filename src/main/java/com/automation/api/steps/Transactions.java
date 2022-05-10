@@ -3,15 +3,17 @@ package com.automation.api.steps;
 import com.automation.api.pojo.Transaction;
 import io.restassured.http.ContentType;
 import org.apache.log4j.Logger;
-
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 import static io.restassured.RestAssured.*;
 
+/**
+ * Class to provide functionality in tests layer.
+ * @author js.lozano
+ */
 public class Transactions extends BaseStep {
 
     private Logger log = Logger.getLogger(Transactions.class);
@@ -48,6 +50,22 @@ public class Transactions extends BaseStep {
     }
 
     /**
+     * Delete all transactions
+     */
+    @Override
+    public void deleteEndpoint() {
+        this.getTransactions();
+        List<Transaction> transactions = response.then().extract().response()
+                .jsonPath().getList("$", Transaction.class);
+
+        List<String> transactionsId = new ArrayList<>();
+        transactions.forEach(transaction-> transactionsId.add(transaction.getId()));
+        for (String id : transactionsId) {
+            deleteTransaction(id);
+        }
+    }
+
+    /**
      * POST method. Create transaction
      * @param transaction {@link Transaction}
      */
@@ -78,28 +96,6 @@ public class Transactions extends BaseStep {
 
         response = given().contentType(ContentType.JSON).body(transaction)
                 .when().put(endpoint + id);
-    }
-
-    /**
-     * Show list of transactions after GET request
-     */
-    public void showListOfTransactions(){
-        List<Transaction> transactions = response.then().extract().response()
-                .jsonPath().getList("$", Transaction.class);
-        log.info(transactions);
-    }
-
-    /**
-     * Delete all transactions
-     */
-    public void deleteTransactions(){
-        List<Transaction> transactions = response.then().extract().response()
-                .jsonPath().getList("$", Transaction.class);
-        List<String> transactionsId = new ArrayList<>();
-        transactions.forEach(transaction-> transactionsId.add(transaction.getId()));
-        for (String id : transactionsId) {
-            deleteTransaction(id);
-        }
     }
 
     /**
