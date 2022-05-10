@@ -9,7 +9,8 @@ import java.util.List;
 
 public class PostTest extends BaseTest{
 
-    @Test(dataProvider = "transactions", dataProviderClass = Data.class)
+    @Test(dataProvider = "transactions", dataProviderClass = Data.class,
+            groups = {"withDeleteTransactions"})
     public void testPostRequest(List<Transaction> transactions){
         transactions_steps.createTransaction(transactions);
         Assert.assertEquals(transactions_steps.getStatusCode(), 201, "Transaction can not " +

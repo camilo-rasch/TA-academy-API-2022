@@ -5,7 +5,7 @@ import org.testng.annotations.Test;
 
 public class EndpointEmptyTest extends BaseTest{
 
-    @Test
+    @Test(groups = {"withDeleteTransactions"})
     public void testEndpointIsEmpty(){
         transactions_steps.getTransactions();
         Assert.assertEquals(transactions_steps.getStatusCode(), 404,

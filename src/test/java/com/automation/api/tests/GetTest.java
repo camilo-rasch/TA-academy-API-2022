@@ -5,7 +5,7 @@ import org.testng.annotations.Test;
 
 public class GetTest extends BaseTest{
 
-    @Test
+    @Test(groups = {"WithoutDeleteTransactions"})
     public void testGetRequestWithoutDuplicateEmails(){
         transactions_steps.getTransactions();
         Assert.assertEquals(transactions_steps.getStatusCode(), 200,

@@ -3,9 +3,23 @@
 <suite name="test suite " verbose="1">
     <parameter name="uri" value="https://627347ec6b04786a0903cc93.mockapi.io"/>
     <test name="example run">
+        <groups>
+            <run>
+                <include name="withDeleteTransactions"/>
+            </run>
+        </groups>
         <classes>
             <class name="com.automation.api.tests.EndpointEmptyTest"/>
             <class name="com.automation.api.tests.PostTest"/>
+        </classes>
+    </test>
+    <test name="example run 2">
+        <groups>
+            <run>
+                <include name="WithoutDeleteTransactions"/>
+            </run>
+        </groups>
+        <classes>
             <class name="com.automation.api.tests.GetTest"/>
         </classes>
     </test>
