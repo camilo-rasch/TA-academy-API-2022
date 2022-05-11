@@ -21,7 +21,7 @@ public class PutTest extends BaseTest{
                 "Status code is not correct");
         Transaction transactionToUpdate = transactions_steps.getTransactionResponse();
         transactionToUpdate.setAccountNumber(randomAccountNumber);
-        transactions_steps.updateTransaction(idLastTransaction, transactionToUpdate);
+        transactions_steps.updateRequest(idLastTransaction, transactionToUpdate);
 
         Assert.assertEquals(transactions_steps.getTransactionResponse().getAccountNumber(),
                 transactionToUpdate.getAccountNumber(), "Accounts number was not updated");

@@ -60,19 +60,6 @@ public abstract class BaseStep {
     }
 
     /**
-     * POST method. Create a list of objects
-     * @param objects List
-     */
-    public void postRequest(List<Object> objects){
-        Object object;
-        for (int i = 0; i < objects.size(); i++){
-            object = objects.get(i);
-            response = given().contentType(ContentType.JSON).body(object)
-                    .when().post(endpoint);
-        }
-    }
-
-    /**
      * UPDATE method. Update account number in transaction
      * @param id String
      * @param object Object

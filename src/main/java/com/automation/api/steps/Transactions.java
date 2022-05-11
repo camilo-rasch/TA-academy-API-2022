@@ -25,6 +25,16 @@ public class Transactions extends BaseStep {
     }
 
     /**
+     * POST method. Create a list of transactions
+     * @param transactions
+     */
+    public void postRequest(List<Transaction> transactions){
+        for (Transaction value : transactions) {
+            postRequest(value);
+        }
+    }
+
+    /**
      * Delete all transactions in endpoint
      */
     @Override
@@ -43,49 +53,6 @@ public class Transactions extends BaseStep {
                 deleteRequest(id);
             }
         }
-    }
-
-    /**
-     * POST method. Create transaction
-     * @param transaction {@link Transaction}
-     */
-    public void createTransaction(Transaction transaction){
-        response = given().contentType(ContentType.JSON).body(transaction).when().post(endpoint);
-    }
-
-    /**
-     * POST method. Create a list of transactions
-     * @param transactions {@link Transaction}
-     */
-    public void createTransaction(List<Transaction> transactions){
-        Transaction transaction;
-        for (int i = 0; i < transactions.size(); i++){
-            transaction = transactions.get(i);
-            response = given().contentType(ContentType.JSON).body(transaction)
-                    .when().post(endpoint);
-        }
-    }
-
-    /**
-     * UPDATE method. Update account number in transaction
-     * @param accountNumber long
-     */
-    public void updateTransaction(String id, long accountNumber){
-        Transaction transaction = new Transaction();
-        transaction.setAccountNumber(accountNumber);
-
-        response = given().contentType(ContentType.JSON).body(transaction)
-                .when().put(endpoint + id);
-    }
-
-    /**
-     * UPDATE method. Update account number in transaction
-     * @param id String
-     * @param transaction {@link Transaction}
-     */
-    public void updateTransaction(String id ,Transaction transaction){
-        response = given().contentType(ContentType.JSON).body(transaction)
-                .when().put(endpoint + id);
     }
 
     /**

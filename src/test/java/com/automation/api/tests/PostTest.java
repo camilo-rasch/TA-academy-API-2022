@@ -12,7 +12,7 @@ public class PostTest extends BaseTest{
     @Test(dataProvider = "transactions", dataProviderClass = Data.class,
             groups = {"withDeleteTransactions"})
     public void testPostRequest(List<Transaction> transactions){
-        transactions_steps.createTransaction(transactions);
+        transactions_steps.postRequest(transactions);
         Assert.assertEquals(transactions_steps.getStatusCode(), 201, "Transaction can not " +
                 "be created");
         transactions_steps.getRequest();
