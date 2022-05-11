@@ -74,18 +74,15 @@ public class BankTransaction {
 
     /**
      * Minimal Requirements Constructor.
-     * @param id String
      * @param last_name String
      * @param account_number String
      * @param transaction_type String
      * @param email String
      */
-    public BankTransaction(String id, String last_name, String account_number, String transaction_type, String email) {
-        this.id = id;
+    public BankTransaction(String last_name, String account_number, String transaction_type) {
         this.last_name = last_name;
         this.account_number = account_number;
         this.transaction_type = transaction_type;
-        this.email = email;
     }
 
     /**
