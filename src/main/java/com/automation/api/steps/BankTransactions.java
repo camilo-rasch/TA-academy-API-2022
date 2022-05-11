@@ -70,14 +70,22 @@ public class BankTransactions {
 
     /**
      * (POST Method) - Create new transaction.
-     * @param bankTransaction {@link BankTransaction}
      */
-    public void createTransaction(BankTransaction bankTransaction) {
+    public void createTransaction() {
+        BankTransaction bankTransaction= new BankTransaction(faker.name().firstName(),
+                faker.name().lastName(),
+                "58892456",
+                transa_string,
+                faker.internet().emailAddress(),
+                faker.bool().bool(),
+                faker.country().name(),
+                faker.phoneNumber().cellPhone());
         response = given().contentType(ContentType.JSON).body(bankTransaction).when().post(endpoint);
+        log.info("Transaction No. 1 created");
     }
 
     /**
-     * (POST Method) - Create 10 transaction with minimal requeriments
+     * (POST Method) - Create 10 transactions with minimal requirements
      */
     public void createTransactionPOJO() {
         for(int i=1;i<=10;i++){

@@ -4,9 +4,6 @@ import com.automation.api.pojo.BankTransaction;
 import com.github.javafaker.Faker;
 import org.testng.annotations.DataProvider;
 
-import java.util.Iterator;
-import java.util.List;
-import java.util.ListIterator;
 import java.util.Random;
 
 /**
@@ -27,6 +24,23 @@ public class DataBT {
         BankTransaction bankTransaction = new BankTransaction(faker.name().firstName(),
                 faker.name().lastName(),
                 faker.code().gtin8(),
+                transa_string,
+                faker.internet().emailAddress(),
+                faker.bool().bool(),
+                faker.country().name(),
+                faker.phoneNumber().cellPhone());
+        return new Object[][] {{bankTransaction}};
+    }
+
+    @DataProvider(name = "bankTransactionUpdate")
+    public Object[][] inputDataUpdate() {
+
+        Random transa_random = new Random();
+        String transa_string = transa_type[transa_random.nextInt(transa_type.length)];
+
+        BankTransaction bankTransaction = new BankTransaction(faker.name().firstName(),
+                faker.name().lastName(),
+                "58892456",
                 transa_string,
                 faker.internet().emailAddress(),
                 faker.bool().bool(),
