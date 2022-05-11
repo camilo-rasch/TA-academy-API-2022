@@ -61,18 +61,16 @@ public class Transactions extends BaseStep {
         return response.then().extract().response()
                 .jsonPath().getList("$", Transaction.class);
     }
-
     /**
      * Get last transaction id in the endpoint
      * @return String
      */
-    public String getLastTransactionId(){
+    public String getLastId(){
         List<Transaction> transactions = response.then().extract().response()
                 .jsonPath().getList("$", Transaction.class);
 
         return transactions.get(transactions.size() - 1).getId();
     }
-
     /**
      * Delete all transactions in endpoint
      */

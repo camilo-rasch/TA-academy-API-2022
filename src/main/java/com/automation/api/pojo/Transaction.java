@@ -4,9 +4,8 @@ package com.automation.api.pojo;
  * Class representing a transaction after GET request
  * @author js.lozano
  */
-public class Transaction {
+public class Transaction extends BasicPojo{
 
-    private String id;
     private String firstName;
     private String lastName;
     private long accountNumber;
@@ -46,22 +45,6 @@ public class Transaction {
         this.active = active;
         this.country = country;
         this.telephone = telephone;
-    }
-
-    /**
-     * Get id
-     * @return String
-     */
-    public String getId() {
-        return id;
-    }
-
-    /**
-     * Set id
-     * @param id String
-     */
-    public void setId(String id) {
-        this.id = id;
     }
 
     /**

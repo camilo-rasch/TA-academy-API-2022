@@ -64,16 +64,6 @@ public class Users extends BaseStep{
     }
 
     /**
-     * Get last id in the list.
-     * @return sting with the id
-     */
-    public String getLastId() {
-        List<User> users =response.then().extract().response().jsonPath().getList("$", User.class);
-
-        return users.get(users.size() - 1).getId();
-    }
-
-    /**
      * get user response.
      * @return User
      */

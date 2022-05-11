@@ -5,9 +5,8 @@ package com.automation.api.pojo;
  * Class that represent a response after a get request
  * @author eliecer.martinez@globant.com
  */
-public class User {
+public class User extends BasicPojo{
 
-    private String id;
     private String first_name;
     private String last_name;
     private String email;
@@ -63,22 +62,6 @@ public class User {
         this.telephone = telephone;
         this.active = active;
         this.job_title = job_title;
-    }
-
-    /**
-     * Get id.
-     * @return String
-     */
-    public String getId() {
-        return id;
-    }
-
-    /**
-     * Set id.
-     * @param id String
-     */
-    public void setId(String id) {
-        this.id = id;
     }
 
     /**

@@ -67,7 +67,7 @@ public class SimpleTest {
         user_steps.getUsersAPIEndpoint();
         user_steps.getRequest();
         Assert.assertEquals(user_steps.getStatusCode(), 200, "Status is not correct");
-        String id = user_steps.getLastId();
+        String id = user_steps.getLastId(new User());
         Assert.assertNotNull(id, "NOT HAVE USERS");
         user_steps.deleteRequest(id);
         Assert.assertEquals(user_steps.getStatusCode(), 200, "Status is not correct");

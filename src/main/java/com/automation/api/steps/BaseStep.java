@@ -1,8 +1,12 @@
 package com.automation.api.steps;
 
+import com.automation.api.pojo.BasicPojo;
+import com.automation.api.pojo.Transaction;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.apache.log4j.Logger;
+
+import java.util.List;
 
 import static io.restassured.RestAssured.given;
 import static io.restassured.RestAssured.when;
@@ -64,6 +68,17 @@ public abstract class BaseStep {
     public void updateRequest(String id, Object object){
         response = given().contentType(ContentType.JSON).body(object)
                 .when().put(endpoint + id);
+    }
+
+    /**
+     * Get last transaction id in the endpoint.
+     * @return String
+     */
+    public String getLastId(BasicPojo basicPojo){
+        List<BasicPojo> objects = response.then().extract().response()
+                .jsonPath().getList("$", BasicPojo.class);
+
+        return objects.get(objects.size() - 1).getId();
     }
 
     public abstract void deleteEndpoint();
