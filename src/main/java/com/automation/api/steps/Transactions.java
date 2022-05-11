@@ -34,7 +34,7 @@ public class Transactions
 
     public void getTransactions()
     {
-        log.info(given().get(this.endpoint));
+        response = given().get(endpoint);
     }
 
     public void createTransaction(Transaction transaction) {
@@ -67,7 +67,7 @@ public class Transactions
         List<Transaction> transactions = response.then().extract().response().jsonPath().getList("$", Transaction.class);
 
         Optional<Transaction> id = transactions.stream().filter(transaction ->
-                        firstName.equals(transaction.getFirstName()))
+                        firstName.equals(transaction.getFirst_name()))
                 .findFirst();
 
         if (id.isPresent())
@@ -81,6 +81,18 @@ public class Transactions
 
         return transactions.get(transactions.size() - 1).getId();
     }
+
+    public boolean isTransactionsEmpty()
+    {
+        try {
+            List<Transaction> transactions = response.then().extract().response().jsonPath().getList("$", Transaction.class);
+            return transactions == null || transactions.size()== 0;
+        }catch (Exception e)
+        {
+            return true;
+        }
+    }
+
 
     public Transaction getTransactionResponse() {
         return response.then().extract().as(Transaction.class);

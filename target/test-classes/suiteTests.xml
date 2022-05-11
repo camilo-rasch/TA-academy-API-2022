@@ -4,9 +4,17 @@
 	<parameter name="uri" value="https://5ea09685eea7760016a91eea.mockapi.io"/>
 	<parameter name="name" value="Madelyn Jones"/>
 	<parameter name="email" value="Carlo.Predovic73@gmail.com"/>
+<!--
 	<test name="example run">
 		<classes>
 			<class name="com.automation.api.tests.SimpleTest"/>
+		</classes>
+	</test>
+	-->
+	<test name="example run">
+		<parameter name="uri" value="https://627bc9c0b54fe6ee008f2d4c.mockapi.io"/>
+		<classes>
+			<class name="com.automation.api.tests.TransactionTest"/>
 		</classes>
 	</test>
 </suite>

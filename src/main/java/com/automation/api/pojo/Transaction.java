@@ -3,28 +3,28 @@ package com.automation.api.pojo;
 public class Transaction
 {
     private String id;
-    private String firstName;
-    private String secondName;
+    private String first_name;
+    private String last_name;
     private float amount;
-    private String transactionType;
+    private String transaction_type;
     private String email;
     private boolean active;
     private String country;
     private String telephone;
-    private String accountNumber;
+    private String account_number;
     public Transaction(){}
 
     public Transaction(String id, String firstName, String secondName, float amount, String transactionType, String email, boolean active, String country, String telephone, String accountNumber) {
         this.id = id;
-        this.firstName = firstName;
-        this.secondName = secondName;
+        this.first_name = firstName;
+        this.last_name = secondName;
         this.amount = amount;
-        this.transactionType = transactionType;
+        this.transaction_type = transactionType;
         this.email = email;
         this.active = active;
         this.country = country;
         this.telephone = telephone;
-        this.accountNumber = accountNumber;
+        this.account_number = accountNumber;
     }
 
     public String getId() {
@@ -35,20 +35,20 @@ public class Transaction
         this.id = id;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getFirst_name() {
+        return first_name;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setFirst_name(String first_name) {
+        this.first_name = first_name;
     }
 
-    public String getSecondName() {
-        return secondName;
+    public String getLast_name() {
+        return last_name;
     }
 
-    public void setSecondName(String secondName) {
-        this.secondName = secondName;
+    public void setLast_name(String last_name) {
+        this.last_name = last_name;
     }
 
     public float getAmount() {
@@ -59,12 +59,12 @@ public class Transaction
         this.amount = amount;
     }
 
-    public String getTransactionType() {
-        return transactionType;
+    public String getTransaction_type() {
+        return transaction_type;
     }
 
-    public void setTransactionType(String transactionType) {
-        this.transactionType = transactionType;
+    public void setTransaction_type(String transaction_type) {
+        this.transaction_type = transaction_type;
     }
 
     public String getEmail() {
@@ -99,27 +99,27 @@ public class Transaction
         this.telephone = telephone;
     }
 
-    public String getAccountNumber() {
-        return accountNumber;
+    public String getAccount_number() {
+        return account_number;
     }
 
-    public void setAccountNumber(String accountNumber) {
-        this.accountNumber = accountNumber;
+    public void setAccount_number(String account_number) {
+        this.account_number = account_number;
     }
 
     @Override
     public String toString() {
         return "Transaction{" +
                 "id='" + id + '\'' +
-                ", firstName='" + firstName + '\'' +
-                ", secondName='" + secondName + '\'' +
+                ", firstName='" + first_name + '\'' +
+                ", secondName='" + last_name + '\'' +
                 ", amount=" + amount +
-                ", transactionType='" + transactionType + '\'' +
+                ", transactionType='" + transaction_type + '\'' +
                 ", email='" + email + '\'' +
                 ", active=" + active +
                 ", country='" + country + '\'' +
                 ", telephone='" + telephone + '\'' +
-                ", accountNumber='" + accountNumber + '\'' +
+                ", accountNumber='" + account_number + '\'' +
                 '}';
     }
 }
