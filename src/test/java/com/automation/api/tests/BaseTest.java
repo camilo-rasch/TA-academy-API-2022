@@ -21,7 +21,7 @@ public class BaseTest {
 
     @BeforeMethod(groups = {"withDeleteTransactions"})
     public void deleteEndpoint(){
-        log.info("Start elimination of registers in endpoint");
+        log.info("Start data elimination in endpoint");
         transactions_steps.deleteEndpoint();
     }
 }
