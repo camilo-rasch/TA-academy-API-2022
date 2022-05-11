@@ -1,14 +1,3 @@
 # API Automation
-  
-INSTALL FRAMEWORK
-
-1. git clone https://github.com/camilo-rasch/TA-academy-API-2022
-2. mvn clean install -DskipTests
-3. mvn eclipse:eclipse or mvn idea:idea
-
-Create new branch
-
-3. git checkout -b "name-branch"
-4. git add .
-5. git commit -m "mensaje"
-6. git push origin "name-branch"
+## Run Tests
+Within this project, an XML file called **MockAPISuite** can be found. In order to run the tests, it is necessary to previously run the mentioned XML. This file can be located at: `src/test/resources/MockAPISuite`

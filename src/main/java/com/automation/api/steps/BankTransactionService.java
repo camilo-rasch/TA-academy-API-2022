@@ -115,17 +115,16 @@ public class BankTransactionService {
     /**
      * @author Sebastián Correa
      *
-     * This method deletes all the transactions of the endpoint after checking if the endpoint is already empty.
+     * This method deletes all the transactions of the endpoint.
      *
      * @return A message indicating if the transactions were deleted or if the endpoint was already empty.
      */
     public String deleteEndpoint() {
-        boolean endpointIsEmpty = checkIfEndpointIsEmpty();
-        if (!endpointIsEmpty) {
+        try {
             List<BankTransaction> transactions = response.then().extract().response().jsonPath().getList("$", BankTransaction.class);
             transactions.forEach(bankTransaction -> deleteTransaction(bankTransaction.getId()));
             return "All transactions deleted. Endpoint is empty";
-        } else {
+        } catch (io.restassured.path.json.exception.JsonPathException e) {
             return "Endpoint is already empty";
         }
     }
