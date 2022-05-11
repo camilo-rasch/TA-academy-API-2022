@@ -10,13 +10,13 @@ public class PutTest extends BaseTest{
     @Test(groups = {"WithoutDeleteTransactions"}, dataProvider = "accountNumber",
             dataProviderClass = Data.class)
     public void testUpdateAccountNumber(long randomAccountNumber){
-        transactions_steps.getTransactions();
+        transactions_steps.getRequest();
         Assert.assertEquals(transactions_steps.getStatusCode(), 200,
                 "Status code is not correct");
         String idLastTransaction = transactions_steps.getLastTransactionId();
         Assert.assertNotNull(idLastTransaction, "There are no transactions");
 
-        transactions_steps.getTransaction(idLastTransaction);
+        transactions_steps.getRequest(idLastTransaction);
         Assert.assertEquals(transactions_steps.getStatusCode(), 200,
                 "Status code is not correct");
         Transaction transactionToUpdate = transactions_steps.getTransactionResponse();

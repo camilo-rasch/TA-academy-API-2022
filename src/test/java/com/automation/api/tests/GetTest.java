@@ -7,7 +7,7 @@ public class GetTest extends BaseTest{
 
     @Test(groups = {"WithoutDeleteTransactions"})
     public void testGetRequestWithoutDuplicateEmails(){
-        transactions_steps.getTransactions();
+        transactions_steps.getRequest();
         Assert.assertEquals(transactions_steps.getStatusCode(), 200,
                 "Status code is not correct");
         Assert.assertFalse(transactions_steps.areDuplicateEmails(), "There are duplicate emails");

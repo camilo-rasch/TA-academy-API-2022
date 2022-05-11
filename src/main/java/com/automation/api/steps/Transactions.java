@@ -2,7 +2,7 @@ package com.automation.api.steps;
 
 import com.automation.api.pojo.Transaction;
 import io.restassured.http.ContentType;
-import org.apache.log4j.Logger;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -25,34 +25,11 @@ public class Transactions extends BaseStep {
     }
 
     /**
-     * GET method to get list of transactions
-     */
-    public void getTransactions(){
-        response = when().get(endpoint);
-    }
-
-    /**
-     * GET method to get transaction by id
-     * @param id String
-     */
-    public void getTransaction(String id){
-        response = when().get(endpoint + id);
-    }
-
-    /**
-     * DELETE method. Delete transaction by id
-     * @param id String
-     */
-    public void deleteTransaction(String id){
-        response = when().delete(endpoint + id);
-    }
-
-    /**
      * Delete all transactions in endpoint
      */
     @Override
     public void deleteEndpoint() {
-        this.getTransactions();
+        this.getRequest();
         log.info(getStatusCode());
 
         if (getStatusCode() == 200){
@@ -63,7 +40,7 @@ public class Transactions extends BaseStep {
             List<String> transactionsId = new ArrayList<>();
             transactions.forEach(transaction-> transactionsId.add(transaction.getId()));
             for (String id : transactionsId) {
-                deleteTransaction(id);
+                deleteRequest(id);
             }
         }
     }

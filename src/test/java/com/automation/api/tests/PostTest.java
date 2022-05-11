@@ -15,7 +15,7 @@ public class PostTest extends BaseTest{
         transactions_steps.createTransaction(transactions);
         Assert.assertEquals(transactions_steps.getStatusCode(), 201, "Transaction can not " +
                 "be created");
-        transactions_steps.getTransactions();
+        transactions_steps.getRequest();
         Assert.assertEquals(transactions_steps.getStatusCode(), 200,
                 "Status code is not correct");
         Assert.assertEquals(transactions_steps.amountOfTransactionsInEndpoint(), 10,

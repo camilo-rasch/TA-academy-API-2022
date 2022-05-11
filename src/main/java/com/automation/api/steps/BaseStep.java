@@ -1,7 +1,11 @@
 package com.automation.api.steps;
 
+import com.automation.api.pojo.Transaction;
+import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.apache.log4j.Logger;
+
+import java.util.List;
 
 import static io.restassured.RestAssured.given;
 import static io.restassured.RestAssured.when;
@@ -45,6 +49,37 @@ public abstract class BaseStep {
      */
     public void deleteRequest(String id){
         response = when().delete(endpoint + id);
+    }
+
+    /**
+     * POST method. Create an object
+     * @param object Object
+     */
+    public void postRequest(Object object){
+        response = given().contentType(ContentType.JSON).body(object).when().post(endpoint);
+    }
+
+    /**
+     * POST method. Create a list of objects
+     * @param objects List
+     */
+    public void postRequest(List<Object> objects){
+        Object object;
+        for (int i = 0; i < objects.size(); i++){
+            object = objects.get(i);
+            response = given().contentType(ContentType.JSON).body(object)
+                    .when().post(endpoint);
+        }
+    }
+
+    /**
+     * UPDATE method. Update account number in transaction
+     * @param id String
+     * @param object Object
+     */
+    public void updateRequest(String id, Object object){
+        response = given().contentType(ContentType.JSON).body(object)
+                .when().put(endpoint + id);
     }
 
     public abstract void deleteEndpoint();

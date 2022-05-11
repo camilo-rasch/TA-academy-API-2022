@@ -7,7 +7,7 @@ public class EndpointEmptyTest extends BaseTest{
 
     @Test(groups = {"withDeleteTransactions"})
     public void testEndpointIsEmpty(){
-        transactions_steps.getTransactions();
+        transactions_steps.getRequest();
         Assert.assertEquals(transactions_steps.getStatusCode(), 404,
                 "Status code is not correct");
         Assert.assertNotNull(transactions_steps.getEndpointEmptyMessage());
