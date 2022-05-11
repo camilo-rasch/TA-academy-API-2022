@@ -22,7 +22,7 @@ public class SimpleTest {
     @Test(description = "Get list of users")
     public void getUsersTest(){
         user_steps.getUsersAPIEndpoint();
-        user_steps.getUsers();
+        user_steps.getRequest();
         Assert.assertEquals(user_steps.getStatusCode(), 200, "Status is not correct");
         user_steps.showActualUsersList();
     }
@@ -31,20 +31,20 @@ public class SimpleTest {
     @Parameters({"name", "email"})
     public void getUserTest(String name, String email){
         user_steps.getUsersAPIEndpoint();
-        user_steps.getUsers();
+        user_steps.getRequest();
         Assert.assertEquals(user_steps.getStatusCode(), 200, "Status is not correct");
         String id = user_steps.getUserID(name);
         Assert.assertNotEquals(id, "", "User doesn't exists");
-        user_steps.getUser(id);
+        user_steps.getRequest(id);
         Assert.assertEquals(user_steps.getStatusCode(), 200, "Status is not correct");
-        User user = user_steps.getUserResponse();
+        User user = user_steps.getObjectResponse();
         Assert.assertEquals(user.getEmail(), email, "Email is not correct");
     }
 
     @Test(description = "Create a new user post", dataProviderClass = Data.class, dataProvider = "users")
     public void postUsersTest(User user){
         user_steps.getUsersAPIEndpoint();
-        user_steps.createUser(user);
+        user_steps.postRequest(user);
         Assert.assertEquals(user_steps.getStatusCode(), 201, "Status is not correct");
     }
 
@@ -52,26 +52,26 @@ public class SimpleTest {
     public void putTest(User user){
         user.setJobTitle("Mesero");
         user_steps.getUsersAPIEndpoint();
-        user_steps.getUsers();
+        user_steps.getRequest();
         Assert.assertEquals(user_steps.getStatusCode(), 200, "Status is not correct");
         String id = user_steps.getUserID(user.getFirst_name() + " " + user.getLast_name());
         Assert.assertNotEquals(id, "", "User doesn't exists");
         user_steps.getUsersAPIEndpoint();
         user_steps.updateUser(id, user.getJobTitle());
         Assert.assertEquals(user_steps.getStatusCode(), 200, "Status is not correct");
-        Assert.assertEquals(user_steps.getUserResponse().getJobTitle(),  user.getJobTitle(), "Job title is not correct");
+        Assert.assertEquals(user_steps.getObjectResponse().getJobTitle(),  user.getJobTitle(), "Job title is not correct");
     }
 
     @Test(description = "delete las user")
     public void deleteUserTest(){
         user_steps.getUsersAPIEndpoint();
-        user_steps.getUsers();
+        user_steps.getRequest();
         Assert.assertEquals(user_steps.getStatusCode(), 200, "Status is not correct");
         String id = user_steps.getLastId();
         Assert.assertNotNull(id, "NOT HAVE USERS");
-        user_steps.deleteUser(id);
+        user_steps.deleteRequest(id);
         Assert.assertEquals(user_steps.getStatusCode(), 200, "Status is not correct");
-        user_steps.getUser(id);
+        user_steps.getRequest(id);
         Assert.assertEquals(user_steps.getStatusCode(), 404, "Status is not correct");
     }
 }

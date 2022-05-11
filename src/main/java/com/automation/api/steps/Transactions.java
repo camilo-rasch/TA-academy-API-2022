@@ -1,14 +1,11 @@
 package com.automation.api.steps;
 
 import com.automation.api.pojo.Transaction;
-import io.restassured.http.ContentType;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
-import static io.restassured.RestAssured.*;
 
 /**
  * Class to provide functionality in tests layer.
@@ -26,32 +23,11 @@ public class Transactions extends BaseStep {
 
     /**
      * POST method. Create a list of transactions
-     * @param transactions
+     * @param transactions List
      */
     public void postRequest(List<Transaction> transactions){
         for (Transaction value : transactions) {
             postRequest(value);
-        }
-    }
-
-    /**
-     * Delete all transactions in endpoint
-     */
-    @Override
-    public void deleteEndpoint() {
-        this.getRequest();
-        log.info(getStatusCode());
-
-        if (getStatusCode() == 200){
-            log.info(actualTransactionsList());
-            List<Transaction> transactions = response.then().extract().response()
-                    .jsonPath().getList("$", Transaction.class);
-
-            List<String> transactionsId = new ArrayList<>();
-            transactions.forEach(transaction-> transactionsId.add(transaction.getId()));
-            for (String id : transactionsId) {
-                deleteRequest(id);
-            }
         }
     }
 
@@ -98,10 +74,32 @@ public class Transactions extends BaseStep {
     }
 
     /**
+     * Delete all transactions in endpoint
+     */
+    @Override
+    public void deleteEndpoint() {
+        this.getRequest();
+        log.info(getStatusCode());
+
+        if (getStatusCode() == 200){
+            log.info(actualTransactionsList());
+            List<Transaction> transactions = response.then().extract().response()
+                    .jsonPath().getList("$", Transaction.class);
+
+            List<String> transactionsId = new ArrayList<>();
+            transactions.forEach(transaction-> transactionsId.add(transaction.getId()));
+            for (String id : transactionsId) {
+                deleteRequest(id);
+            }
+        }
+    }
+
+    /**
      * Get transaction response after GET request by id
      * @return {@link Transaction}
      */
-    public Transaction getTransactionResponse(){
+    @Override
+    public Transaction getObjectResponse(){
         return response.then().extract()
                 .as(Transaction.class);
     }

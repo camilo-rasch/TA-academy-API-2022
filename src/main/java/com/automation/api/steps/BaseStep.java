@@ -1,11 +1,8 @@
 package com.automation.api.steps;
 
-import com.automation.api.pojo.Transaction;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.apache.log4j.Logger;
-
-import java.util.List;
 
 import static io.restassured.RestAssured.given;
 import static io.restassured.RestAssured.when;
@@ -70,4 +67,6 @@ public abstract class BaseStep {
     }
 
     public abstract void deleteEndpoint();
+
+    public abstract Object getObjectResponse();
 }

@@ -19,11 +19,11 @@ public class PutTest extends BaseTest{
         transactions_steps.getRequest(idLastTransaction);
         Assert.assertEquals(transactions_steps.getStatusCode(), 200,
                 "Status code is not correct");
-        Transaction transactionToUpdate = transactions_steps.getTransactionResponse();
+        Transaction transactionToUpdate = transactions_steps.getObjectResponse();
         transactionToUpdate.setAccountNumber(randomAccountNumber);
         transactions_steps.updateRequest(idLastTransaction, transactionToUpdate);
 
-        Assert.assertEquals(transactions_steps.getTransactionResponse().getAccountNumber(),
+        Assert.assertEquals(transactions_steps.getObjectResponse().getAccountNumber(),
                 transactionToUpdate.getAccountNumber(), "Accounts number was not updated");
 
     }
