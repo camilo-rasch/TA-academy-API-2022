@@ -16,8 +16,6 @@ import static io.restassured.RestAssured.*;
  */
 public class Transactions extends BaseStep {
 
-    private Logger log = Logger.getLogger(Transactions.class);
-
     /**
      * Constructor
      * @param uri String
