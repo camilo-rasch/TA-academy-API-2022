@@ -47,7 +47,8 @@ public class Transactions extends BaseStep {
     }
 
     /**
-     * Show in console list of transactions
+     * Get actual list of transactions after GET request
+     * @return List
      */
     public List<Transaction> actualTransactionsList(){
         return response.then().extract().response()

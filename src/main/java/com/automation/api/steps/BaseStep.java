@@ -87,7 +87,7 @@ public abstract class BaseStep {
      */
     public void deleteEndpoint(){
         getRequest();
-        log.info(getStatusCode());
+        log.info("Status code:" + getStatusCode());
 
         if (getStatusCode() == 200){
             List<BasePojo> objects = response.then().extract().response()
