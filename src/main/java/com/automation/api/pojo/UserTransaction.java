@@ -16,10 +16,9 @@ public class UserTransaction {
     private String telephone;
 
 
-    public UserTransaction(String id, String name, String lastName, int accountNumber,
+    public UserTransaction( String name, String lastName, int accountNumber,
                            int amount, String transactionType, String email, boolean active,
                            String country, String telephone) {
-        this.id = id;
         this.name = name;
         this.lastName = lastName;
         this.accountNumber = accountNumber;
@@ -31,7 +30,51 @@ public class UserTransaction {
         this.telephone = telephone;
     }
 
+    public UserTransaction() {
+
+    }
+
     public String getId() {
         return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public int getAccountNumber() {
+        return accountNumber;
+    }
+
+    public void setAccountNumber(int accountNumber){
+        this.accountNumber = accountNumber;
+    }
+
+    public int getAmount() {
+        return amount;
+    }
+
+    public String getTransactionType() {
+        return transactionType;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public String getTelephone() {
+        return telephone;
     }
 }

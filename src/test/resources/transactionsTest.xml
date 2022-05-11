@@ -2,6 +2,7 @@
 
 <suite name="example test suite" verbose="1">
 	<parameter name="uri" value="https://627939f6d00bded55ae6675e.mockapi.io/api/v1/"/>
+	<parameter name="newAccount" value="123456789"/>
 	<test name="Transactions Test">
 		<classes>
 			<class name="com.automation.api.tests.BankTransactionTest"/>
