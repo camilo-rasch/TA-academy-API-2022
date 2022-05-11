@@ -17,24 +17,45 @@ public class Transactions {
     public Logger log = Logger.getLogger(Transactions.class);
     private Response response;
 
+    /**
+     * Constructor.
+     *
+     * @param uri String
+     */
     public Transactions(String uri) {
         endpoint = uri + "/api/v1/bankTransactions/";
     }
 
+    /**
+     * Get transactions endpoint print.
+     */
     public void getTransactionsAPIEndpoint() {
         log.info(endpoint);
     }
 
+    /**
+     * GET Method transactions/:id.
+     *
+     * @param id String
+     */
     public void getTransaction(String id) {
         response = given()
                 .get(endpoint + id);
     }
 
+    /**
+     * GET Method transactions (list of transactions).
+     */
     public void getTransactions() {
         response = given()
                 .get(endpoint);
     }
 
+    /**
+     * POST Method create new transaction.
+     *
+     * @param bankTransaction {@link BankTransaction}
+     */
     public void createTransaction(BankTransaction bankTransaction) {
         response = given()
                 .contentType(ContentType.JSON)
@@ -43,11 +64,21 @@ public class Transactions {
                 .post(endpoint);
     }
 
+    /**
+     * get response status code.
+     *
+     * @return status code int
+     */
     public int getStatusCode() {
         return response.getStatusCode();
     }
 
-    public List<BankTransaction> getBankTransactionsList() {
+    /**
+     * method get for List of BankTransaction.
+     *
+     * @return List of BankTransaction
+     */
+    private List<BankTransaction> getBankTransactionsList() {
         return response
                 .then()
                 .extract()
@@ -56,6 +87,9 @@ public class Transactions {
                 .getList("$", BankTransaction.class);
     }
 
+    /**
+     * Print list of transactions.
+     */
     public void showActualTransactionsList() {
         try {
             log.info(getBankTransactionsList());
@@ -64,10 +98,18 @@ public class Transactions {
         }
     }
 
+    /**
+     * DELETE Method, delete transaction by id.
+     *
+     * @param id String
+     */
     public void deleteTransaction(String id) {
         response = given().delete(endpoint + id);
     }
 
+    /**
+     * clean endpoint of transactions.
+     */
     public void cleanTransactionsEndpoint() {
         try {
             List<BankTransaction> bankTransactionList = getBankTransactionsList();
@@ -79,6 +121,9 @@ public class Transactions {
         }
     }
 
+    /**
+     * check if exists duplicate emails in endpoint.
+     */
     public boolean checkDuplicateEmails() {
         Set<String> duplicated = new HashSet<>();
         try {
@@ -95,6 +140,11 @@ public class Transactions {
         return false;
     }
 
+    /**
+     * get last transaction register
+     *
+     * @return BankTransaction
+     */
     public BankTransaction getLastTransaction() {
         List<BankTransaction> bankTransactionList = null;
         try {
@@ -106,6 +156,12 @@ public class Transactions {
         return bankTransactionList.get(bankTransactionList.size() - 1);
     }
 
+    /**
+     * PUT Method update accountNumber of a transaction.
+     *
+     * @param bankTransaction BankTransaction
+     * @param accountNumber   String
+     */
     public void updateTransaction(BankTransaction bankTransaction, String accountNumber) {
         bankTransaction.setAccountNumber(accountNumber);
 

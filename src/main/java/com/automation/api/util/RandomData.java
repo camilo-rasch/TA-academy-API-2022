@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * Class for random data used in DataProvider
+ */
 public class RandomData {
 
     static List<String> emailsGenerated = new ArrayList<>();

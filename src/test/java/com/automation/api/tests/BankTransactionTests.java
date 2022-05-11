@@ -18,6 +18,9 @@ public class BankTransactionTests {
         transactionsSteps = new Transactions(uri);
     }
 
+    /**
+     * Verify the endpoint is empty
+     */
     @Test(description = "Verify Endpoint is Empty")
     public void endpointEmptyTest() {
         transactionsSteps.getTransactionsAPIEndpoint();
@@ -29,6 +32,11 @@ public class BankTransactionTests {
         transactionsSteps.showActualTransactionsList();
     }
 
+    /**
+     * Initialize 10 random data using DataProvider and util.RandomData class
+     *
+     * @param bankTransaction object from DataProvider
+     */
     @Test(description = "Initialize 10 random data", dataProviderClass = DataProv.class, dataProvider = "dataInfo")
     public void initialize10RandomDataTest(BankTransaction bankTransaction) {
         transactionsSteps.getTransactionsAPIEndpoint();
@@ -36,6 +44,9 @@ public class BankTransactionTests {
         Assert.assertEquals(transactionsSteps.getStatusCode(), 201, "Status is not correct");
     }
 
+    /**
+     * Make GET Request, asserting there are not duplicate emails
+     */
     @Test(description = "Get request, checking not duplicate email accounts")
     public void getRequestNoDuplicateEmailTest() {
         transactionsSteps.getTransactionsAPIEndpoint();
@@ -43,6 +54,9 @@ public class BankTransactionTests {
         Assert.assertFalse(transactionsSteps.checkDuplicateEmails(), "Duplicated email found");
     }
 
+    /**
+     * Update an existing transaction (the last one) and change its accountNumber (to "7777777")
+     */
     @Test(description = "Update Existing AccountNumber")
     public void updateExistingAccountNumberTest() {
         transactionsSteps.getTransactionsAPIEndpoint();
