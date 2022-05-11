@@ -11,8 +11,10 @@
 		</classes>
 	</test>
 	-->
-	<test name="example run">
+	<test name="Transaction exercise">
 		<parameter name="uri" value="https://627bc9c0b54fe6ee008f2d4c.mockapi.io"/>
+		<parameter name="id" value="1"></parameter>
+		<parameter name="amount" value="10"></parameter>
 		<classes>
 			<class name="com.automation.api.tests.TransactionTest"/>
 		</classes>
