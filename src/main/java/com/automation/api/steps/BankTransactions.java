@@ -6,9 +6,12 @@ import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.apache.log4j.Logger;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static io.restassured.RestAssured.given;
 
@@ -131,13 +134,25 @@ public class BankTransactions {
     }
 
     /**
-     * Delete all transactions
+     * (DELETE) - All transactions
      * @param bankTransactionList List<BankTransaction>
      */
     public void deleteAllTransactions(List<BankTransaction> bankTransactionList){
         for(int i=0;i<=bankTransactionList.size()-1;i++){
             deleteTransaction(bankTransactionList.get(i).getId());
         }
+    }
+
+    /**
+     * Check if there are duplicate emails
+     */
+    public boolean checkDuplicateEmails(List<BankTransaction> bankTransactionList){
+        boolean ans = false;
+        List<BankTransaction> distinctItems = bankTransactionList.stream().distinct().collect(Collectors.toList());
+        if(distinctItems.isEmpty()){
+            ans = true;
+        }
+        return ans;
     }
 
     /**
@@ -163,7 +178,7 @@ public class BankTransactions {
      * @return String with the id
      */
     public String getLastId() {
-        List<BankTransaction> bankTransactionList =response.then().extract().response().jsonPath().getList("$", BankTransaction.class);
+        List<BankTransaction> bankTransactionList = response.then().extract().response().jsonPath().getList("$", BankTransaction.class);
 
         return bankTransactionList.get(bankTransactionList.size() - 1).getId();
     }
@@ -175,7 +190,4 @@ public class BankTransactions {
     public BankTransaction getBankTransactionResponse() {
         return response.then().extract().as(BankTransaction.class);
     }
-
-
-
 }

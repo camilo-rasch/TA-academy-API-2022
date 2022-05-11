@@ -23,14 +23,22 @@ public class BankTransactionsTests {
     }
 
     @Test(description = "Making post request with POJO data")
-    public void postRequestPOJO(){
+    public void a_postRequestPOJO(){
         bt_steps.getBankTransactionsAPIEndpoint();
         bt_steps.createTransactionPOJO();
         Assert.assertEquals(bt_steps.getStatusCode(), 201, "Status is not correct");
     }
 
+    @Test(description = "Verify that there's no duplicate emails")
+    public void b_checkNoDuplicateEmails(){
+        bt_steps.getBankTransactionsAPIEndpoint();
+        bt_steps.getTransactions();
+        log.info("Checking if there are duplicate emails");
+        Assert.assertEquals(bt_steps.checkDuplicateEmails(bt_steps.getBankTransactionList()), false, "There aren't duplicate emails");
+    }
+
     @Test(description = "Verify if the endpoint is empty, if not, then delete all")
-    public void verifyEndpointTest(){
+    public void d_verifyEndpointTest(){
         bt_steps.getBankTransactionsAPIEndpoint();
         bt_steps.getTransactions();
         log.info("Checking if the endpoint is empty");

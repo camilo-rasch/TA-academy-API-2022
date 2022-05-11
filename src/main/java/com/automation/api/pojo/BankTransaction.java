@@ -77,7 +77,6 @@ public class BankTransaction {
      * @param last_name String
      * @param account_number String
      * @param transaction_type String
-     * @param email String
      */
     public BankTransaction(String last_name, String account_number, String transaction_type) {
         this.last_name = last_name;
