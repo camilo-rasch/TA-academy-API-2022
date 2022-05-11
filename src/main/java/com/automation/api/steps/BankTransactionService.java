@@ -1,6 +1,7 @@
 package com.automation.api.steps;
 
 import com.automation.api.pojo.BankTransaction;
+import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.apache.log4j.Logger;
 
@@ -35,6 +36,16 @@ public class BankTransactionService {
     }
 
     /**
+     * @author Sebastián Correa
+     *
+     * GET Method by transaction id.
+     * @param id Unique id of the transaction
+     */
+    public void getTransactionById(int id) {
+        response = given().get(endpoint + id);
+    }
+
+    /**
      * Print list of transactions.
      */
     public void showTransactionsList() {
@@ -48,6 +59,27 @@ public class BankTransactionService {
      */
     public int getStatusCode() {
         return response.getStatusCode();
+    }
+
+    /**
+     * @author Sebastián Correa
+     *
+     * Get response object from payload.
+     * @return Object from the response payload.
+     */
+    public BankTransaction getResponseObject() {
+        return response.then().extract().jsonPath().getObject("$", BankTransaction.class);
+    }
+
+    /**
+     * @author Sebastián Correa
+     *
+     * PUT Method to update a transaction by its id.
+     * @param id Unique id of the transaction to update.
+     * @param transaction BankTransaction object with the updated values.
+     */
+    public void updateTransaction(int id, BankTransaction transaction) {
+        response = given().contentType(ContentType.JSON).body(transaction).when().put(endpoint + id);
     }
 
     /**
@@ -112,4 +144,6 @@ public class BankTransactionService {
         }
         return emailsAreDuplicated;
     }
+
+
 }
