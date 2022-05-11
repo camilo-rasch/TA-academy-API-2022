@@ -65,7 +65,7 @@ public class BankTransactionService {
      * @author Sebastián Correa
      *
      * Get response object from payload.
-     * @return Object from the response payload.
+     * @return Object from the response payload
      */
     public BankTransaction getResponseObject() {
         return response.then().extract().jsonPath().getObject("$", BankTransaction.class);
@@ -74,12 +74,42 @@ public class BankTransactionService {
     /**
      * @author Sebastián Correa
      *
+     * Get all payload from the response.
+     * @return Response payload as list
+     */
+    public List<BankTransaction> getResponsePayload() {
+        return response.then().extract().jsonPath().getList("$", BankTransaction.class);
+    }
+
+    /**
+     * @author Sebastián Correa
+     *
      * PUT Method to update a transaction by its id.
-     * @param id Unique id of the transaction to update.
-     * @param transaction BankTransaction object with the updated values.
+     * @param id Unique id of the transaction to update
+     * @param transaction BankTransaction object with the updated values
      */
     public void updateTransaction(int id, BankTransaction transaction) {
         response = given().contentType(ContentType.JSON).body(transaction).when().put(endpoint + id);
+    }
+
+    /**
+     * @author Sebastián Correa
+     *
+     * This method posts a collection of transactions.
+     * @param transactions List of transactions to post
+     */
+    public void createTransactions(List<BankTransaction> transactions) {
+        transactions.forEach(this::createTransaction);
+    }
+
+    /**
+     * @author Sebastián Correa
+     *
+     * POST method to create a transaction.
+     * @param transaction BankTransaction object to send as body of the request
+     */
+    public void createTransaction(BankTransaction transaction) {
+        response = given().contentType(ContentType.JSON).body(transaction).when().post(endpoint);
     }
 
     /**
@@ -116,8 +146,7 @@ public class BankTransactionService {
     /**
      * @author Sebastián Correa
      *
-     * This method makes a delete request to the endpoint, using the id of the transaction.
-     *
+     * DELETE method to remove a transaction using its id.
      * @param id The unique id of the transaction.
      */
     public void deleteTransaction(String id){
@@ -144,6 +173,4 @@ public class BankTransactionService {
         }
         return emailsAreDuplicated;
     }
-
-
 }

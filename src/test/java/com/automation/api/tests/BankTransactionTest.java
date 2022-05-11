@@ -1,5 +1,6 @@
 package com.automation.api.tests;
 
+import com.automation.api.data.RandomDataGenerator;
 import com.automation.api.pojo.BankTransaction;
 import com.automation.api.steps.BankTransactionService;
 import org.testng.Assert;
@@ -7,19 +8,20 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
+import java.util.List;
 import java.util.Random;
 
 public class BankTransactionTest {
 
     private BankTransactionService transactionSteps;
 
-    @BeforeMethod
+    @BeforeMethod(alwaysRun = true)
     @Parameters({"uri"})
     public void test(String uri){
         this.transactionSteps = new BankTransactionService(uri);
     }
 
-    @Test(description = "Verify if transactions endpoint is empty")
+    @Test(description = "Verify if transactions endpoint is empty", groups = "emptyEndpointTest")
     public void verifyTheEndpointIsEmptyTest(){
         transactionSteps.log.info("Getting all transactions");
         transactionSteps.getTransactions();
@@ -29,7 +31,18 @@ public class BankTransactionTest {
         Assert.assertTrue(deletionMessage.equals("All transactions deleted. Endpoint is empty") || deletionMessage.equals("Endpoint is already empty"), "Endpoint isn't empty");
     }
 
-    @Test(description = "Check that emails are not duplicated")
+    @Test(dataProvider = "randomTransactions", dataProviderClass = RandomDataGenerator.class, groups = "createTransactionListTest")
+    public void postCollectionToEndpointTest(List<BankTransaction> randomTransactions){
+        transactionSteps.log.info("Sending post request");
+        transactionSteps.createTransactions(randomTransactions);
+        transactionSteps.log.info("Asserting that the last status code is correct");
+        Assert.assertEquals(transactionSteps.getStatusCode(), 201, "Transaction was not created properly");
+        transactionSteps.getTransactions();
+        transactionSteps.log.info("Asserting that size of payload and number of transactions posted match");
+        Assert.assertEquals(transactionSteps.getResponsePayload().size(), 10, "Size of the endpoint is not correct");
+    }
+
+    @Test(description = "Check that emails are not duplicated", groups = "nonDuplicatedEmailsTest")
     public void checkAllEmailsAreNotDuplicatedTest(){
         transactionSteps.log.info("Getting all transactions");
         transactionSteps.getTransactions();
@@ -38,7 +51,7 @@ public class BankTransactionTest {
         Assert.assertFalse(transactionSteps.checkIfEmailsAreDuplicated(), "Endpoint contains duplicated emails");
     }
 
-    @Test(description = "Verify if update request works")
+    @Test(description = "Verify if update request works", groups = "updateTransactionTest")
     public void updateAccountNumberTest(){
         transactionSteps.log.info("Generating random id and random account number");
         Random random = new Random();
@@ -52,9 +65,7 @@ public class BankTransactionTest {
         transactionSteps.updateTransaction(randomId, transactionToUpdate);
         transactionSteps.log.info("Verifying update request status code");
         Assert.assertEquals(transactionSteps.getStatusCode(), 200, "Status is not correct");
-        transactionSteps.getTransactionById(randomId);
-        BankTransaction updatedTransaction = transactionSteps.getResponseObject();
         transactionSteps.log.info("Asserting that updated transaction account number and the previously generated account number match");
-        Assert.assertEquals(updatedTransaction.getAccountNumber(), randomAccountNumber, "Account numbers don't match");
+        Assert.assertEquals(transactionSteps.getResponseObject().getAccountNumber(), randomAccountNumber, "Account numbers don't match");
     }
 }

@@ -1,9 +1,47 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 
-<suite name="Mock API Bank Transactions Suite" verbose="1">
+<suite name="Mock API Bank Transactions Suite" verbose="1" parallel="false">
     <parameter name="uri" value="https://6279700f4a5ef80e2c09df5a.mockapi.io"/>
 
-    <test name="Verify endpoint is empty test">
+    <test name="Verify endpoint is empty test" preserve-order="true">
+        <groups>
+            <run>
+                <include name="emptyEndpointTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.automation.api.tests.BankTransactionTest"/>
+        </classes>
+    </test>
+
+    <test name="Post random collection test" preserve-order="true">
+        <groups>
+            <run>
+                <include name="createTransactionListTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.automation.api.tests.BankTransactionTest"/>
+        </classes>
+    </test>
+
+    <test name="Verify there are not duplicated emails test" preserve-order="true">
+        <groups>
+            <run>
+                <include name="nonDuplicatedEmailsTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.automation.api.tests.BankTransactionTest"/>
+        </classes>
+    </test>
+
+    <test name="Update account number test" preserve-order="true">
+        <groups>
+            <run>
+                <include name="updateTransactionTest"/>
+            </run>
+        </groups>
         <classes>
             <class name="com.automation.api.tests.BankTransactionTest"/>
         </classes>
