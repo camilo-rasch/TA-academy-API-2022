@@ -20,7 +20,7 @@
             </run>
         </groups>
         <classes>
-            <class name="com.automation.api.tests.GetTest"/>
+            <class name="com.automation.api.tests.DuplicateEmailsTest"/>
             <class name="com.automation.api.tests.PutTest"/>
         </classes>
     </test>
