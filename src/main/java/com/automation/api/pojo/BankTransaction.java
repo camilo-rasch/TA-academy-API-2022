@@ -50,6 +50,29 @@ public class BankTransaction {
     }
 
     /**
+     * Complete Constructor without id.
+     * @param name String
+     * @param last_name String
+     * @param account_number String
+     * @param transaction_type String
+     * @param email String
+     * @param active boolean
+     * @param country String
+     * @param telephone String
+     */
+    public BankTransaction(String name, String last_name, String account_number, String transaction_type,
+                           String email, boolean active, String country, String telephone) {
+        this.name = name;
+        this.last_name = last_name;
+        this.account_number = account_number;
+        this.transaction_type = transaction_type;
+        this.email = email;
+        this.active = active;
+        this.country = country;
+        this.telephone = telephone;
+    }
+
+    /**
      * Minimal Requirements Constructor.
      * @param id String
      * @param last_name String

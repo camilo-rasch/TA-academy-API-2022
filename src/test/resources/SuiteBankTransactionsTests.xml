@@ -1,0 +1,10 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="Suite Bank Transactions Test" verbose="1">
+    <parameter name="base_url" value="https://627a757e73bad50685897546.mockapi.io"/>
+    <test name="BankTransactionsTests">
+        <classes>
+            <class name="com.automation.api.tests.BankTransactionsTests"/>
+        </classes>
+    </test>
+</suite>

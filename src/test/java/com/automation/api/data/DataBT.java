@@ -1,9 +1,10 @@
 package com.automation.api.data;
 
 import com.automation.api.pojo.BankTransaction;
-import com.automation.api.pojo.User;
 import com.github.javafaker.Faker;
 import org.testng.annotations.DataProvider;
+
+import java.util.Random;
 
 /**
  * Class that contents the creates the data for the test
@@ -11,11 +12,23 @@ import org.testng.annotations.DataProvider;
  */
 public class DataBT {
 
-    Faker faker = new Faker();
+    private static final Faker faker = new Faker();
+    static final String[] transa_type = {"Payment", "Invoice", "Withdrawal", "Deposit"};
 
     @DataProvider(name = "bankTransaction")
     public Object[][] inputData() {
-        BankTransaction bankTransaction = new BankTransaction();
+
+        Random transa_random = new Random();
+        String transa_string = transa_type[transa_random.nextInt(transa_type.length)];
+
+        BankTransaction bankTransaction = new BankTransaction(faker.name().firstName(),
+                faker.name().lastName(),
+                faker.code().gtin8(),
+                transa_string,
+                faker.internet().emailAddress(),
+                faker.bool().bool(),
+                faker.country().name(),
+                faker.phoneNumber().cellPhone());
         return new Object[][] {{bankTransaction}};
     }
 }
