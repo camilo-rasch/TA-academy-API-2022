@@ -1,12 +1,12 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 
 <suite name="example test suite" verbose="1">
-	<parameter name="uri" value="https://5ea09685eea7760016a91eea.mockapi.io"/>
+	<parameter name="uri" value="https://627ac4a1b54fe6ee007d71d9.mockapi.io"/>
 	<parameter name="name" value="Madelyn Jones"/>
 	<parameter name="email" value="Carlo.Predovic73@gmail.com"/>
 	<test name="example run">
 		<classes>
-			<class name="com.automation.api.tests.SimpleTest"/>
+			<class name="com.automation.api.tests.BankTransactionTests"/>
 		</classes>
 	</test>
 </suite>
