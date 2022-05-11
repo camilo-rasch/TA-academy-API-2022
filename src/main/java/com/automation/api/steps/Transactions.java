@@ -47,49 +47,11 @@ public class Transactions extends BaseStep {
     }
 
     /**
-     * Return message "Not Found" if endpoint is empty
-     * @return String
-     */
-    public String getEndpointEmptyMessage(){
-        return response.then().extract().asString();
-    }
-
-    /**
      * Show in console list of transactions
      */
     public List<Transaction> actualTransactionsList(){
         return response.then().extract().response()
                 .jsonPath().getList("$", Transaction.class);
-    }
-    /**
-     * Get last transaction id in the endpoint
-     * @return String
-     */
-    public String getLastId(){
-        List<Transaction> transactions = response.then().extract().response()
-                .jsonPath().getList("$", Transaction.class);
-
-        return transactions.get(transactions.size() - 1).getId();
-    }
-    /**
-     * Delete all transactions in endpoint
-     */
-    @Override
-    public void deleteEndpoint() {
-        this.getRequest();
-        log.info(getStatusCode());
-
-        if (getStatusCode() == 200){
-            log.info(actualTransactionsList());
-            List<Transaction> transactions = response.then().extract().response()
-                    .jsonPath().getList("$", Transaction.class);
-
-            List<String> transactionsId = new ArrayList<>();
-            transactions.forEach(transaction-> transactionsId.add(transaction.getId()));
-            for (String id : transactionsId) {
-                deleteRequest(id);
-            }
-        }
     }
 
     /**

@@ -4,7 +4,7 @@ package com.automation.api.pojo;
  * Class representing a transaction after GET request
  * @author js.lozano
  */
-public class Transaction extends BasicPojo{
+public class Transaction extends BasePojo {
 
     private String firstName;
     private String lastName;

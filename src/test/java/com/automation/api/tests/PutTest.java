@@ -13,7 +13,7 @@ public class PutTest extends BaseTest{
         transactions_steps.getRequest();
         Assert.assertEquals(transactions_steps.getStatusCode(), 200,
                 "Status code is not correct");
-        String idLastTransaction = transactions_steps.getLastId(new Transaction());
+        String idLastTransaction = transactions_steps.getLastId();
         Assert.assertNotNull(idLastTransaction, "There are no transactions");
 
         transactions_steps.getRequest(idLastTransaction);

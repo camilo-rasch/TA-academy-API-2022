@@ -1,6 +1,10 @@
 package com.automation.api.pojo;
 
-public class BasicPojo {
+/**
+ * Base pojo class to handle id in pojos.
+ * @author js.lozano
+ */
+public class BasePojo {
     protected String id;
 
     /**

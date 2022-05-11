@@ -1,5 +1,6 @@
 package com.automation.api.tests;
 
+import com.automation.api.pojo.Transaction;
 import com.automation.api.steps.Transactions;
 import org.apache.log4j.Logger;
 import org.testng.annotations.BeforeClass;

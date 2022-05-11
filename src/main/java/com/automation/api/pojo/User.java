@@ -5,7 +5,7 @@ package com.automation.api.pojo;
  * Class that represent a response after a get request
  * @author eliecer.martinez@globant.com
  */
-public class User extends BasicPojo{
+public class User extends BasePojo {
 
     private String first_name;
     private String last_name;

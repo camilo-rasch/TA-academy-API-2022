@@ -72,8 +72,4 @@ public class Users extends BaseStep{
         return response.then().extract().as(User.class);
     }
 
-    @Override
-    public void deleteEndpoint() {
-
-    }
 }

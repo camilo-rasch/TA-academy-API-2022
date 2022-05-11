@@ -1,11 +1,11 @@
 package com.automation.api.steps;
 
-import com.automation.api.pojo.BasicPojo;
-import com.automation.api.pojo.Transaction;
+import com.automation.api.pojo.BasePojo;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.apache.log4j.Logger;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static io.restassured.RestAssured.given;
@@ -74,14 +74,40 @@ public abstract class BaseStep {
      * Get last transaction id in the endpoint.
      * @return String
      */
-    public String getLastId(BasicPojo basicPojo){
-        List<BasicPojo> objects = response.then().extract().response()
-                .jsonPath().getList("$", BasicPojo.class);
+    public String getLastId(){
+        List<BasePojo> objects = response.then().extract().response()
+                .jsonPath().getList("$", BasePojo.class);
 
         return objects.get(objects.size() - 1).getId();
     }
 
-    public abstract void deleteEndpoint();
+    /**
+     * Delete all records in endpoint.
+     *
+     */
+    public void deleteEndpoint(){
+        getRequest();
+        log.info(getStatusCode());
+
+        if (getStatusCode() == 200){
+            List<BasePojo> objects = response.then().extract().response()
+                    .jsonPath().getList("$", BasePojo.class);
+
+            List<String> objectsId = new ArrayList<>();
+            objects.forEach(object-> objectsId.add(object.getId()));
+            for (String id : objectsId) {
+                deleteRequest(id);
+            }
+        }
+    }
+
+    /**
+     * Get response as a String
+     * @return String
+     */
+    public String getResponseAsString(){
+        return response.then().extract().asString();
+    }
 
     public abstract Object getObjectResponse();
 }
