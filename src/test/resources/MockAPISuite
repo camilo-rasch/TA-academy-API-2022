@@ -1,0 +1,11 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="Mock API Bank Transactions Suite" verbose="1">
+    <parameter name="uri" value="https://6279700f4a5ef80e2c09df5a.mockapi.io"/>
+
+    <test name="Verify endpoint is empty test">
+        <classes>
+            <class name="com.automation.api.tests.BankTransactionTest"/>
+        </classes>
+    </test>
+</suite>
