@@ -57,9 +57,10 @@ public class TransactionsController {
     }
 
     /**
-     * POST Creation a Verified Transaction
+     * POST Method, Creates a Verified Transaction
      * @param transaction UserTransaction
-     * @return variable isVerified that confirms new transaction with unique email
+     * @return boolean confirmation, false if the transaction creation was created with email duplicated,
+     * otherwise, true
      */
     public boolean createTransactionVerified(UserTransaction transaction){
         boolean isVerified = true;
@@ -77,8 +78,8 @@ public class TransactionsController {
     }
 
     /**
-     * Method that check duplicated emails among all emails
-     * @return boolean that checks duplicated
+     * Method checks duplicated emails among all emails
+     * @return boolean that checks duplicated, false if is any email duplicated, otherwise, false
      */
     public boolean anyDuplicatedEmail(){
         if(!checkEmptiness()){
@@ -89,7 +90,6 @@ public class TransactionsController {
             return true;
         }
     }
-
     /**
      * Method gives all emails in List of Strings
      * @return List Emails
@@ -102,9 +102,10 @@ public class TransactionsController {
     }
 
     /**
-     * Method to check one email, before create new transaction
+     * Method checks one email among all emails
      * @param email String email
-     * @return boolean checking a specific duplicated email
+     * @return a boolean, checking if the entered email is duplicated,
+     * true if the email is duplicated, otherwise, false
      */
     public boolean isDuplicatedEmail(String email){
         AtomicBoolean isDuplicated = new AtomicBoolean(false);
@@ -122,9 +123,8 @@ public class TransactionsController {
         }
         return isDuplicated.get();
     }
-
     /**
-     * DELETE all Transactions if they exist
+     * DELETE Method, deletes all Transactions if they exist
      */
     public void deleteAllTransactions(){
         if(response.getStatusCode() == 200){
@@ -137,9 +137,8 @@ public class TransactionsController {
             log.info("The Data is already Empty");
         }
     }
-
     /**
-     * PUT update an account number of existing transaction
+     * PUT Method,  updates an account number of existing transaction
      * @param id String id
      * @param account int account
      */
@@ -149,9 +148,8 @@ public class TransactionsController {
 
         response = given().contentType(ContentType.JSON).body(transaction).when().put(endpoint + id);
     }
-
     /**
-     * GET object by Id
+     * GET Method, Transaction by id
      * @param id  string id
      * @return UserTransaction
      */
@@ -161,8 +159,8 @@ public class TransactionsController {
     }
 
     /**
-     * Methods that check emptiness in data transactions
-     * @return boolean about Data emptiness
+     * Method checks if there are no transactions
+     * @return boolean about Data emptiness, true if is empty, otherwise false
      */
     public boolean checkEmptiness(){
         boolean isEmpty = false;
@@ -178,7 +176,7 @@ public class TransactionsController {
     }
 
     /**
-     * Method to get last id
+     * Method gets last id
      * @return String id
      */
     public String getLastId() {
@@ -188,7 +186,7 @@ public class TransactionsController {
     }
 
     /**
-     * Method that check Status 200 and 404
+     * Method checks Status 200 and 404
      * @return boolean
      */
     public boolean checkStatusTransactions(){

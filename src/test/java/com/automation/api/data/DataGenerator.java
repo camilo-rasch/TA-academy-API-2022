@@ -10,6 +10,14 @@ import java.util.Date;
 import java.util.Random;
 
 public class DataGenerator {
+
+    private enum Types{
+        PAYMENT,
+        INVOICE,
+        WITHDRAWAL,
+        DEPOSIT
+    }
+
     @DataProvider(name = "transactions")
     public Object[][] inputData(){
         UserTransaction pipelon = new UserTransaction(getRandomText(7),getRandomText(8),
@@ -39,16 +47,20 @@ public class DataGenerator {
         return "+"+getRandomNumber(2) + " " + getRandomNumber(9);
     }
 
+    /**
+     * Method chooses a number in this range [97-122]
+     * @return Int number between 97 and 122
+     */
     public int getCodeASCII(){
         Random rand = new Random();
         return 97 + rand.nextInt((122-97)+1);
     }
 
+    /**
+     * @return String with random choose in Types.
+     */
     public String getRandomType(){
-        String type = null;
-        int random = getRandomNumber(1);
-
-        return "Payment";
+        return Types.values()[new Random().nextInt(Types.values().length)].toString();
     }
 
 }

@@ -48,6 +48,7 @@ public class BankTransactionTest {
     public void updateAccountNumber(int newAccount){
         transactions_steps.getAPIEndpoint();
         transactions_steps.getTransactions();
+        Assert.assertFalse(transactions_steps.checkEmptiness(),"There's no Data to update");
         String lastId = transactions_steps.getLastId();
         transactions_steps.updateTransaction(lastId,newAccount);
         Assert.assertEquals(transactions_steps.getTransactionById(lastId).getAccountNumber(),newAccount,"Account Updating goes wrong");
