@@ -18,7 +18,7 @@ public class PostTest extends BaseTest{
         transactions_steps.getRequest();
         Assert.assertEquals(transactions_steps.getStatusCode(), 200,
                 "Status code is not correct");
-        Assert.assertEquals(transactions_steps.amountOfTransactionsInEndpoint(), 10,
+        Assert.assertEquals(transactions_steps.actualTransactionsList().size(), 10,
                 "Left transactions to create");
         Assert.assertFalse(transactions_steps.areDuplicateEmails());
     }

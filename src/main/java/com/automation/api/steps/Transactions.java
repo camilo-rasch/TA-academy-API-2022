@@ -43,7 +43,7 @@ public class Transactions extends BaseStep {
         log.info(getStatusCode());
 
         if (getStatusCode() == 200){
-            this.showActualTransactionsList();
+            log.info(actualTransactionsList());
             List<Transaction> transactions = response.then().extract().response()
                     .jsonPath().getList("$", Transaction.class);
 
@@ -81,20 +81,9 @@ public class Transactions extends BaseStep {
     /**
      * Show in console list of transactions
      */
-    public void showActualTransactionsList(){
-        List<Transaction> transactions = response.then().extract().response()
+    public List<Transaction> actualTransactionsList(){
+        return response.then().extract().response()
                 .jsonPath().getList("$", Transaction.class);
-        log.info(transactions);
-    }
-
-    /**
-     * Amount of transactions in the endpoint
-     * @return int
-     */
-    public int amountOfTransactionsInEndpoint(){
-        List<Transaction> transactions = response.then().extract().response()
-                .jsonPath().getList("$", Transaction.class);
-        return transactions.size();
     }
 
     /**
@@ -113,6 +102,7 @@ public class Transactions extends BaseStep {
      * @return {@link Transaction}
      */
     public Transaction getTransactionResponse(){
-        return response.then().extract().as(Transaction.class);
+        return response.then().extract()
+                .as(Transaction.class);
     }
 }
