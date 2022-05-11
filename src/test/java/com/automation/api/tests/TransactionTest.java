@@ -3,7 +3,6 @@ package com.automation.api.tests;
 import com.automation.api.data.TransactionData;
 import com.automation.api.pojo.Transaction;
 import com.automation.api.steps.Transactions;
-import com.automation.api.steps.Users;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Parameters;
@@ -49,9 +48,13 @@ public class TransactionTest
         transactions_steps.getTransactionApiEndpoint();
 
         TransactionData.generateAmount();
-        System.out.println(id+" "+TransactionData.amount);
+        TransactionData.generateFirstName();
+        TransactionData.generateLastName();
+        System.out.println(id+" "+TransactionData.AMOUNT);
+        System.out.println(id+" "+TransactionData.FIRST_NAME);
+        System.out.println(id+" "+TransactionData.LAST_NAME);
 
-        transactions_steps.updateTransaction(id, TransactionData.amount);
+        transactions_steps.updateTransaction(id, TransactionData.AMOUNT);
         Assert.assertEquals(transactions_steps.getStatusCode(), 200, STATUS_MSG);
     }
 }
