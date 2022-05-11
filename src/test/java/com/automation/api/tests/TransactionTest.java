@@ -41,20 +41,14 @@ public class TransactionTest
         Assert.assertTrue(isEmpty, "Is not empty");
     }
 
-    @Test(description = "update an account number")
-    @Parameters({"id"})
-    public void updateAccountNumber(String id)
+    @Test(description = "update an account number", dataProviderClass = TransactionData.class, dataProvider = "transactions")
+    public void updateAccountNumber(Transaction transaction)
     {
-        transactions_steps.getTransactionApiEndpoint();
+        //transactions_steps.getTransactionApiEndpoint();
 
-        TransactionData.generateAmount();
-        TransactionData.generateFirstName();
-        TransactionData.generateLastName();
-        System.out.println(id+" "+TransactionData.AMOUNT);
-        System.out.println(id+" "+TransactionData.FIRST_NAME);
-        System.out.println(id+" "+TransactionData.LAST_NAME);
+        //System.out.println(transaction);
 
-        transactions_steps.updateTransaction(id, TransactionData.AMOUNT);
-        Assert.assertEquals(transactions_steps.getStatusCode(), 200, STATUS_MSG);
+        //transactions_steps.updateTransaction(id, TransactionData.AMOUNT);
+        //Assert.assertEquals(transactions_steps.getStatusCode(), 200, STATUS_MSG);
     }
 }
