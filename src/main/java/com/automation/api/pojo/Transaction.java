@@ -18,7 +18,6 @@ public class Transaction
      */
     public Transaction(){}
 
-
     /**
      * Constructor.
      * @param id String
