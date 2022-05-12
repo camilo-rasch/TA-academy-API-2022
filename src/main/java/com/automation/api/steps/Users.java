@@ -1,5 +1,6 @@
 package com.automation.api.steps;
 
+import com.automation.api.IApiAction;
 import com.automation.api.pojo.User;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
@@ -9,7 +10,7 @@ import org.apache.log4j.Logger;
 import java.util.List;
 import java.util.Optional;
 
-public class Users {
+public class Users implements IApiAction<User> {
 
     private final String endpoint;
     private Response response;
@@ -26,15 +27,18 @@ public class Users {
     /**
      * Get users endpoint print.
      */
-    public void getUsersAPIEndpoint() {
+    @Override
+    public void getApiEndpoint() {
         log.info(endpoint);
     }
+
 
     /**
      * GET Method users/:id.
      * @param id String
      */
-    public void getUser(String id) {
+    @Override
+    public void getObject(String id) {
         response = given().get(endpoint + id);
         log.info(response.asString());
     }
@@ -42,7 +46,8 @@ public class Users {
     /**
      * GET Method users (list of users).
      */
-    public void getUsers() {
+    @Override
+    public void getObjects() {
         response = given().get(endpoint);
     }
 
@@ -50,7 +55,8 @@ public class Users {
      * POST Method create new user.
      * @param user {@link User}
      */
-    public void createUser(User user) {
+    @Override
+    public void createObject(User user) {
         response = given().contentType(ContentType.JSON).body(user).when().post(endpoint);
     }
 
@@ -70,7 +76,8 @@ public class Users {
      * DELETE Method, delete user by id.
      * @param id String
      */
-    public void deleteUser(String id) {
+    @Override
+    public void deleteObject(String id) {
         response = given().delete(endpoint + id);
     }
 
@@ -78,6 +85,7 @@ public class Users {
      * get response status code.
      * @return status code int
      */
+    @Override
     public int getStatusCode() {
         return response.getStatusCode();
     }
@@ -85,7 +93,8 @@ public class Users {
     /**
      * Print list of users.
      */
-    public void showActualUsersList() {
+    @Override
+    public void showActualObjectList() {
         List<User> users = response.then().extract().response().jsonPath().getList("$", User.class);
         log.info(users);
     }
@@ -110,10 +119,12 @@ public class Users {
     }
 
 
+
     /**
      * Get last id in the list.
      * @return sting with the id
      */
+    @Override
     public String getLastId() {
         List<User> users =response.then().extract().response().jsonPath().getList("$", User.class);
 
@@ -124,7 +135,10 @@ public class Users {
      * get user response.
      * @return User
      */
-    public User getUserResponse() {
+    @Override
+    public User getObjectResponse() {
         return response.then().extract().as(User.class);
     }
+
+
 }

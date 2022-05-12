@@ -1,5 +1,6 @@
 package com.automation.api.steps;
 
+import com.automation.api.IApiAction;
 import com.automation.api.pojo.Transaction;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
@@ -9,7 +10,7 @@ import org.apache.log4j.Logger;
 import java.util.List;
 import java.util.Optional;
 
-public class Transactions
+public class Transactions implements IApiAction<Transaction>
 {
     private final String endpoint;
     private Response response;
@@ -21,23 +22,26 @@ public class Transactions
         this.log = Logger.getLogger(Transactions.class);
     }
 
-    public void getTransactionApiEndpoint()
-    {
+    @Override
+    public void getApiEndpoint() {
         log.info(this.endpoint);
     }
 
-    public void getTransaction(String id)
+    @Override
+    public void getObject(String id)
     {
         response = given().get(this.endpoint+id);
         log.info(response.asString());
     }
 
-    public void getTransactions()
+    @Override
+    public void getObjects()
     {
         response = given().get(endpoint);
     }
 
-    public void createTransaction(Transaction transaction) {
+    @Override
+    public void createObject(Transaction transaction) {
         response = given().contentType(ContentType.JSON).body(transaction).when().post(endpoint);
     }
 
@@ -50,15 +54,18 @@ public class Transactions
         response = given().contentType(ContentType.JSON).body(transaction).when().put(endpoint + id);
     }
 
-    public void deleteTransaction(String id) {
+    @Override
+    public void deleteObject(String id) {
         response = given().delete(endpoint + id);
     }
 
+    @Override
     public int getStatusCode() {
         return response.getStatusCode();
     }
 
-    public void showActualTransactionList() {
+    @Override
+    public void showActualObjectList() {
         List<Transaction> transactions = response.then().extract().response().jsonPath().getList("$", Transaction.class);
         log.info(transactions);
     }
@@ -76,6 +83,7 @@ public class Transactions
             return "";
     }
 
+    @Override
     public String getLastId() {
         List<Transaction> transactions =response.then().extract().response().jsonPath().getList("$", Transaction.class);
 
@@ -104,8 +112,8 @@ public class Transactions
     }
 
 
-    public Transaction getTransactionResponse() {
+    @Override
+    public Transaction getObjectResponse() {
         return response.then().extract().as(Transaction.class);
     }
-
 }

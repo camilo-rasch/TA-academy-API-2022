@@ -5,7 +5,6 @@ import com.automation.api.pojo.Transaction;
 import com.automation.api.steps.Transactions;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.DataProvider;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
@@ -27,8 +26,8 @@ public class TransactionTest
     @Test(description = "Verify that there is no transactions here", priority = 0)
     public void verifyEndpointIsEmpty()
     {
-        transactions_steps.getTransactionApiEndpoint();
-        transactions_steps.getTransactions();
+        transactions_steps.getApiEndpoint();
+        transactions_steps.getObjects();
 
         boolean isEmpty = transactions_steps.isTransactionsEmpty();
 
@@ -36,9 +35,9 @@ public class TransactionTest
                 Assert.assertEquals(transactions_steps.getStatusCode(), 200, STATUS_MSG);
                 String id = transactions_steps.getLastId();
                 System.out.println("Deleting transaction with id : " + id);
-                transactions_steps.deleteTransaction(id);
+                transactions_steps.deleteObject(id);
                 Assert.assertEquals(transactions_steps.getStatusCode(), 200, STATUS_MSG);
-                transactions_steps.getTransactions();
+                transactions_steps.getObjects();
                 isEmpty = transactions_steps.isTransactionsEmpty();
             }
 
@@ -51,14 +50,14 @@ public class TransactionTest
     enabled = true, priority = 1)
     public void saveUniqueTransactions(Transaction transaction)
     {
-        transactions_steps.getTransactionApiEndpoint();
+        transactions_steps.getApiEndpoint();
         System.out.println(transaction);
-        transactions_steps.getTransactions();
+        transactions_steps.getObjects();
 
         boolean duplicity = isEmailDuplicated(transactions_steps.getTransactionsList(), transaction);
 
         if(!duplicity) {
-            this.transactions_steps.createTransaction(transaction);
+            this.transactions_steps.createObject(transaction);
             Assert.assertEquals(this.transactions_steps.getStatusCode(), 201, STATUS_MSG);
         }
 
@@ -68,8 +67,8 @@ public class TransactionTest
     @Test(description = "Verify all transactions are unique", priority = 2, enabled = true)
     public void checkUniqueTransactions()
     {
-        transactions_steps.getTransactionApiEndpoint();
-        transactions_steps.getTransactions();
+        transactions_steps.getApiEndpoint();
+        transactions_steps.getObjects();
         Assert.assertEquals(this.transactions_steps.getStatusCode(), 200, STATUS_MSG);
 
         List<Transaction>transactions = this.transactions_steps.getTransactionsList();
@@ -92,7 +91,7 @@ public class TransactionTest
     @Parameters({"id"})
     public void updateTransaction(String id)
     {
-        this.transactions_steps.getTransactionApiEndpoint();
+        this.transactions_steps.getApiEndpoint();
         TransactionData.generateAmount();
         this.transactions_steps.updateTransaction(id, TransactionData.AMOUNT);
         Assert.assertEquals(this.transactions_steps.getStatusCode(), 200, STATUS_MSG);
