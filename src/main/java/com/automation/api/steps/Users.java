@@ -6,8 +6,7 @@ import io.restassured.response.Response;
 import static io.restassured.RestAssured.*;
 import org.apache.log4j.Logger;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 public class Users {
 
@@ -20,7 +19,7 @@ public class Users {
      * @param uri String
      */
     public Users(String uri) {
-        endpoint = uri + "/v1/users/";
+        endpoint = uri + "/bank/";
     }
 
     /**
@@ -52,17 +51,20 @@ public class Users {
      */
     public void createUser(User user) {
         response = given().contentType(ContentType.JSON).body(user).when().post(endpoint);
+
+        String message = this.getStatusCode() == 201 ? "User created successfully": "An error " +
+                "occurred creating the user";
+        log.info(message);
     }
 
     /**
      * PUT Method update job title of a user.
      * @param id String
-     * @param jobTitle String
+     * @param accountNumber String
      */
-    public void updateUser(String id, String jobTitle) {
+    public void updateUser(String id, String accountNumber) {
         User user = new User();
-        user.setJobTitle(jobTitle);
-
+        user.setAccountNumber(accountNumber);
         response = given().contentType(ContentType.JSON).body(user).when().put(endpoint + id);
     }
 
@@ -72,6 +74,14 @@ public class Users {
      */
     public void deleteUser(String id) {
         response = given().delete(endpoint + id);
+        log.info(this.getStatusCode());
+    }
+
+    public void deleteAllUsers(){
+        List<User> users = this.getUsersList();
+        for (User user: users){
+            deleteUser(user.getId());
+        }
     }
 
     /**
@@ -85,18 +95,48 @@ public class Users {
     /**
      * Print list of users.
      */
-    public void showActualUsersList() {
-        List<User> users = response.then().extract().response().jsonPath().getList("$", User.class);
-        log.info(users);
+    public List<User> getUsersList() {
+        this.getUsers();
+        List<User> users = new ArrayList<>();
+        try {
+            users = response.then().extract().response().jsonPath().getList("$", User.class);
+        }
+        catch (Exception ignore){
+            // it's an empty list
+             }
+        return users;
     }
 
 
+    public boolean hasDuplicatedEmails(){
+        List<User> users = this.getUsersList();
+        Set<String> emails = new HashSet<>();
+        for (User user: users){
+            String email = user.getEmail();
+            if (emails.contains(email)){return true;}
+            emails.add(email);
+        }
+        return emails.size() == users.size() ? false: true;
+
+    }
+
     /**
      * Find first user with the name.
-     * @param name String name
-     * @return sting with the id
+     * @param accountNumber String accountNumber
+     * @return string with the id
      */
-    public String getUserID(String name) {
+    public String getUserID(String accountNumber) {
+        List<User> users = response.then().extract().response().jsonPath().getList("$", User.class);
+
+        Optional<User> id = users.stream().filter(user ->
+                        accountNumber.equals(user.getAccountNumber())).findFirst();
+
+        if (id.isPresent())
+            return id.get().getId();
+        else
+            return "";
+    }
+    /*public String getUserID(String name) {
         List<User> users = response.then().extract().response().jsonPath().getList("$", User.class);
 
         Optional<User> id = users.stream().filter(user ->
@@ -107,7 +147,7 @@ public class Users {
             return id.get().getId();
         else
             return "";
-    }
+    }*/
 
 
     /**

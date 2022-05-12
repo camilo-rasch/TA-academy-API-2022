@@ -8,6 +8,8 @@ import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import com.automation.api.steps.Users;
 
+import java.util.List;
+
 
 public class SimpleTest {
 
@@ -19,59 +21,42 @@ public class SimpleTest {
         user_steps = new Users(uri);
     }
 
-    @Test(description = "Get list of users")
-    public void getUsersTest(){
-        user_steps.getUsersAPIEndpoint();
-        user_steps.getUsers();
-        Assert.assertEquals(user_steps.getStatusCode(), 200, "Status is not correct");
-        user_steps.showActualUsersList();
+    @Test(description = "Empty endpoint")
+    public void checkEmptyEndpointTest(){
+        List<User> users = user_steps.getUsersList();
+        if (users.size() > 0){
+            user_steps.deleteAllUsers();
+        }
+        users = user_steps.getUsersList();
+        Assert.assertEquals(users.size(), 0, "The endpoint is not empty");
     }
 
-    @Test(description = "Get a user")
-    @Parameters({"name", "email"})
-    public void getUserTest(String name, String email){
-        user_steps.getUsersAPIEndpoint();
-        user_steps.getUsers();
-        Assert.assertEquals(user_steps.getStatusCode(), 200, "Status is not correct");
-        String id = user_steps.getUserID(name);
-        Assert.assertNotEquals(id, "", "User doesn't exists");
-        user_steps.getUser(id);
-        Assert.assertEquals(user_steps.getStatusCode(), 200, "Status is not correct");
-        User user = user_steps.getUserResponse();
-        Assert.assertEquals(user.getEmail(), email, "Email is not correct");
-    }
-
-    @Test(description = "Create a new user post", dataProviderClass = Data.class, dataProvider = "users")
-    public void postUsersTest(User user){
-        user_steps.getUsersAPIEndpoint();
+    @Test(description = "Create users", dataProvider = "users", dataProviderClass = Data.class)
+    public void createUsersTest(User user){
         user_steps.createUser(user);
-        Assert.assertEquals(user_steps.getStatusCode(), 201, "Status is not correct");
     }
 
-    @Test(description = "Update user", dataProviderClass = Data.class, dataProvider = "users")
-    public void putTest(User user){
-        user.setJobTitle("Mesero");
+    @Test(description = "check if duplicate emails exist")
+    public void duplicateEmailsTest(){
+        Assert.assertFalse(user_steps.hasDuplicatedEmails(), "The api has duplicate emails");
+    }
+
+    @Test(description = "update an existing AccountNumber")
+    @Parameters({"accountNumber"})
+    public void putTest(String accountNumber) {
+        User user = new User();
+        user.setAccountNumber(accountNumber);
         user_steps.getUsersAPIEndpoint();
         user_steps.getUsers();
         Assert.assertEquals(user_steps.getStatusCode(), 200, "Status is not correct");
-        String id = user_steps.getUserID(user.getFirst_name() + " " + user.getLast_name());
+        String id = user_steps.getUserID(user.getAccountNumber());
         Assert.assertNotEquals(id, "", "User doesn't exists");
         user_steps.getUsersAPIEndpoint();
-        user_steps.updateUser(id, user.getJobTitle());
+
+        String newAccountNumber = "11111";
+        user_steps.updateUser(id, newAccountNumber);
         Assert.assertEquals(user_steps.getStatusCode(), 200, "Status is not correct");
-        Assert.assertEquals(user_steps.getUserResponse().getJobTitle(),  user.getJobTitle(), "Job title is not correct");
+        Assert.assertEquals(user_steps.getUserResponse().getAccountNumber(), newAccountNumber, "Account Number is not correct");
     }
 
-    @Test(description = "delete las user")
-    public void deleteUserTest(){
-        user_steps.getUsersAPIEndpoint();
-        user_steps.getUsers();
-        Assert.assertEquals(user_steps.getStatusCode(), 200, "Status is not correct");
-        String id = user_steps.getLastId();
-        Assert.assertNotNull(id, "NOT HAVE USERS");
-        user_steps.deleteUser(id);
-        Assert.assertEquals(user_steps.getStatusCode(), 200, "Status is not correct");
-        user_steps.getUser(id);
-        Assert.assertEquals(user_steps.getStatusCode(), 404, "Status is not correct");
-    }
 }

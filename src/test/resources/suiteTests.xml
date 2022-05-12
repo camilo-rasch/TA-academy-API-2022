@@ -1,10 +1,9 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 
-<suite name="example test suite" verbose="1">
-	<parameter name="uri" value="https://5ea09685eea7760016a91eea.mockapi.io"/>
-	<parameter name="name" value="Madelyn Jones"/>
-	<parameter name="email" value="Carlo.Predovic73@gmail.com"/>
-	<test name="example run">
+<suite name="suite of basics" verbose="1">
+	<parameter name="uri" value="https://6277f1602f94a1d7061409f1.mockapi.io"/>
+	<parameter name="accountNumber" value="111458"/>
+	<test name="testing api basics users">
 		<classes>
 			<class name="com.automation.api.tests.SimpleTest"/>
 		</classes>

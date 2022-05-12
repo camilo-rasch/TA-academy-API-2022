@@ -8,13 +8,24 @@ package com.automation.api.pojo;
 public class User {
 
     private String id;
-    private String first_name;
-    private String last_name;
+    private String name;
+    private String lastName;
     private String email;
     private String country;
     private String telephone;
+    private String accountNumber;
+    private String transactionType;
+    private float amount;
     private boolean active;
-    private String job_title;
+    private String jobTitle;
+
+    public String getAccountNumber() {
+        return accountNumber;
+    }
+
+    public void setAccountNumber(String accountNumber) {
+        this.accountNumber = accountNumber;
+    }
 
     /**
      * Constructor.
@@ -24,45 +35,51 @@ public class User {
     /**
      * Constructor.
      * @param id String
-     * @param first_name String
-     * @param last_name String
+     * @param name String
+     * @param lastName String
      * @param email String
      * @param country String
      * @param telephone String
      * @param active boolean
-     * @param job_title String
+     * @param jobTitle String
      */
-    public User(String id, String first_name, String last_name, String email,
-                String country, String telephone, boolean active, String job_title) {
+    public User(String id, String name, String lastName, String accountNumber, float amount, String transactionType,
+                String email, boolean active, String country, String telephone, String jobTitle) {
         this.id = id;
-        this.first_name = first_name;
-        this.last_name = last_name;
+        this.name = name;
+        this.lastName = lastName;
+        this.accountNumber = accountNumber;
+        this.amount = amount;
+        this.transactionType = transactionType;
         this.email = email;
         this.country = country;
         this.telephone = telephone;
         this.active = active;
-        this.job_title = job_title;
+        this.jobTitle = jobTitle;
     }
 
     /**
      * Constructor.
-     * @param first_name String
-     * @param last_name String
+     * @param name String
+     * @param lastName String
      * @param email String
      * @param country String
      * @param telephone String
      * @param active boolean
-     * @param job_title String
+     * @param jobTitle String
      */
-    public User(String first_name, String last_name, String email,
-                String country, String telephone, boolean active, String job_title) {
-        this.first_name = first_name;
-        this.last_name = last_name;
+    public User(String name, String lastName, String accountNumber, float amount, String transactionType,
+                String email, boolean active, String country, String telephone, String jobTitle) {
+        this.name = name;
+        this.lastName = lastName;
+        this.accountNumber = accountNumber;
+        this.amount = amount;
+        this.transactionType = transactionType;
         this.email = email;
         this.country = country;
         this.telephone = telephone;
         this.active = active;
-        this.job_title = job_title;
+        this.jobTitle = jobTitle;
     }
 
     /**
@@ -85,32 +102,32 @@ public class User {
      * Get first name.
      * @return String
      */
-    public String getFirst_name() {
-        return first_name;
+    public String getName() {
+        return name;
     }
 
     /**
      * Set first name.
-     * @param first_name String
+     * @param name String
      */
-    public void setFirst_name(String first_name) {
-        this.first_name = first_name;
+    public void setName(String name) {
+        this.name = name;
     }
 
     /**
      * Get last name.
      * @return String
      */
-    public String getLast_name() {
-        return last_name;
+    public String getLastName() {
+        return lastName;
     }
 
     /**
      * Set last name
-     * @param last_name String
+     * @param lastName String
      */
-    public void setLast_name(String last_name) {
-        this.last_name = last_name;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     /**
@@ -182,7 +199,7 @@ public class User {
      * @return String
      */
     public String getJobTitle() {
-        return job_title;
+        return jobTitle;
     }
 
     /**
@@ -190,7 +207,7 @@ public class User {
      * @param job_title String
      */
     public void setJobTitle(String job_title) {
-        this.job_title = job_title;
+        this.jobTitle = job_title;
     }
 
     /**
@@ -201,13 +218,13 @@ public class User {
     public String toString() {
         return "\nUser{" +
                 "id='" + id + '\'' +
-                ", first_name='" + first_name + '\'' +
-                ", last_name='" + last_name + '\'' +
+                ", name='" + name + '\'' +
+                ", last_name='" + lastName + '\'' +
                 ", email='" + email + '\'' +
                 ", country='" + country + '\'' +
                 ", telephone='" + telephone + '\'' +
                 ", active='" + active + '\'' +
-                ", job_title='" + job_title + '\'' +
+                ", job_title='" + jobTitle + '\'' +
                 '}';
     }
 }
