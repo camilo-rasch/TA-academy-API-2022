@@ -2,6 +2,7 @@ package com.automation.api.steps;
 
 import com.automation.api.IApiAction;
 import com.automation.api.pojo.Transaction;
+import com.automation.api.pojo.User;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import static io.restassured.RestAssured.*;
@@ -16,17 +17,28 @@ public class Transactions implements IApiAction<Transaction>
     private Response response;
     public Logger log;
 
+    /**
+     * Constructor.
+     * @param uri String
+     */
     public Transactions(String uri)
     {
         this.endpoint = uri + "/bank_transactions/transactions/";
         this.log = Logger.getLogger(Transactions.class);
     }
 
+    /**
+     * Get transaction endpoint print.
+     */
     @Override
     public void getApiEndpoint() {
         log.info(this.endpoint);
     }
 
+    /**
+     * GET Method transactions/:id.
+     * @param id String
+     */
     @Override
     public void getObject(String id)
     {
@@ -34,17 +46,29 @@ public class Transactions implements IApiAction<Transaction>
         log.info(response.asString());
     }
 
+    /**
+     * GET Method transactions (list of transactions).
+     */
     @Override
     public void getObjects()
     {
         response = given().get(endpoint);
     }
 
+    /**
+     * POST Method create new transaction.
+     * @param transaction {@link Transaction}
+     */
     @Override
     public void createObject(Transaction transaction) {
         response = given().contentType(ContentType.JSON).body(transaction).when().post(endpoint);
     }
 
+    /**
+     * PUT Method update amount of transaction.
+     * @param id String
+     * @param amount float
+     */
     public void updateTransaction(String id, float amount) {
 
         Transaction transaction = new Transaction();
@@ -54,22 +78,38 @@ public class Transactions implements IApiAction<Transaction>
         response = given().contentType(ContentType.JSON).body(transaction).when().put(endpoint + id);
     }
 
+    /**
+     * DELETE Method, delete transaction by id.
+     * @param id String
+     */
     @Override
     public void deleteObject(String id) {
         response = given().delete(endpoint + id);
     }
 
+    /**
+     * get response status code.
+     * @return status code int
+     */
     @Override
     public int getStatusCode() {
         return response.getStatusCode();
     }
 
+    /**
+     * Print list of transactions.
+     */
     @Override
     public void showActualObjectList() {
         List<Transaction> transactions = response.then().extract().response().jsonPath().getList("$", Transaction.class);
         log.info(transactions);
     }
 
+    /**
+     * Find first transaction with the name.
+     * @param firstName String name
+     * @return string with the id
+     */
     public String getTransactionID(String firstName) {
         List<Transaction> transactions = response.then().extract().response().jsonPath().getList("$", Transaction.class);
 
@@ -83,6 +123,10 @@ public class Transactions implements IApiAction<Transaction>
             return "";
     }
 
+    /**
+     * Get last id in the list.
+     * @return sting with the id
+     */
     @Override
     public String getLastId() {
         List<Transaction> transactions =response.then().extract().response().jsonPath().getList("$", Transaction.class);
@@ -112,6 +156,10 @@ public class Transactions implements IApiAction<Transaction>
     }
 
 
+    /**
+     * get transaction response.
+     * @return Transaction
+     */
     @Override
     public Transaction getObjectResponse() {
         return response.then().extract().as(Transaction.class);

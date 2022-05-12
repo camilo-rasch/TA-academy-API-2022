@@ -68,6 +68,10 @@ public class TransactionData
         return new Object[][]{{t1},{t2}, {t3}, {t4}, {t5}, {t6}, {t7}, {t8}, {t9}, {t10}};
     }
 
+    /**
+     * create transactions.
+     * @return Transaction
+     */
     private static Transaction createTransaction()
     {
         ID++;
@@ -83,25 +87,45 @@ public class TransactionData
                 EMAIL, ACTIVE, COUNTRY, TELEPHONE, ACCOUNT_NUMBER);
     }
 
+    /**
+     * generate random first name.
+     *
+     */
     public static void generateFirstName()
     {
         FIRST_NAME = firstNames[random.nextInt(firstNameBound)];
     }
+    /**
+     * generate random last name.
+     *
+     */
 
     public static void generateLastName()
     {
         LAST_NAME = lastNames[random.nextInt(lastNameBound)];
     }
+    /**
+     * generate random amount.
+     *
+     */
     public static void generateAmount()
     {
         AMOUNT = (float)(random.nextInt(1000));
     }
 
+    /**
+     * generate random transaction type.
+     *
+     */
     public static void generateTransactionType()
     {
         TRANSACTION_TYPE = transactionTypes[random.nextInt(transactionTypeBound)];
     }
 
+    /**
+     * generate random email.
+     *
+     */
     public static void generateEmail()
     {
         StringBuilder email = new StringBuilder();
@@ -113,11 +137,19 @@ public class TransactionData
         EMAIL = email.toString();
     }
 
+    /**
+     * generate random country.
+     *
+     */
     public static void generateCountry()
     {
         COUNTRY = countries[random.nextInt(countriesBound)];
     }
 
+    /**
+     * generate random mutable number.
+     *
+     */
     public static void generateMutableNumber(NUMBER_TYPE type)
     {
         StringBuilder number = new StringBuilder();

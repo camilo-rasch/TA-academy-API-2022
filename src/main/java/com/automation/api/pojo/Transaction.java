@@ -12,12 +12,31 @@ public class Transaction
     private String country;
     private String telephone;
     private String account_number;
+
+    /**
+     * Constructor.
+     */
     public Transaction(){}
 
-    public Transaction(String id, String firstName, String secondName, float amount, String transactionType, String email, boolean active, String country, String telephone, String accountNumber) {
+
+    /**
+     * Constructor.
+     * @param id String
+     * @param firstName String
+     * @param lastName String
+     * @Param amount float
+     * @param transactionType String
+     * @param email String
+     * @Param active boolean
+     * @param country String
+     * @param telephone String
+     * @Param accountNumber String
+
+     */
+    public Transaction(String id, String firstName, String lastName, float amount, String transactionType, String email, boolean active, String country, String telephone, String accountNumber) {
         this.id = id;
         this.first_name = firstName;
-        this.last_name = secondName;
+        this.last_name = lastName;
         this.amount = amount;
         this.transaction_type = transactionType;
         this.email = email;
