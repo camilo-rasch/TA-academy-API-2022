@@ -5,6 +5,7 @@ import com.automation.api.pojo.Transaction;
 import com.automation.api.steps.Transactions;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
@@ -23,7 +24,7 @@ public class TransactionTest
     }
 
 
-    @Test(description = "Verify that there is no transactions here", enabled = false)
+    @Test(description = "Verify that there is no transactions here", priority = 0)
     public void verifyEndpointIsEmpty()
     {
         transactions_steps.getTransactionApiEndpoint();
@@ -47,7 +48,7 @@ public class TransactionTest
     @Test(description = "Verify all transactions that will be created doesn´t have duplicated emails",
             dataProviderClass = TransactionData.class,
             dataProvider = "transactions",
-    enabled = false)
+    enabled = true, priority = 1)
     public void saveUniqueTransactions(Transaction transaction)
     {
         transactions_steps.getTransactionApiEndpoint();
@@ -64,11 +65,12 @@ public class TransactionTest
         Assert.assertFalse(duplicity, "Email is duplicated");
     }
 
-    @Test(description = "Verify all transactions are unique")
+    @Test(description = "Verify all transactions are unique", priority = 2, enabled = true)
     public void checkUniqueTransactions()
     {
         transactions_steps.getTransactionApiEndpoint();
         transactions_steps.getTransactions();
+        Assert.assertEquals(this.transactions_steps.getStatusCode(), 200, STATUS_MSG);
 
         List<Transaction>transactions = this.transactions_steps.getTransactionsList();
 
@@ -84,6 +86,16 @@ public class TransactionTest
         }
 
         Assert.assertTrue(uniqueEmails, EMAIL_MSG);
+    }
+
+    @Test(description = "update the amount of the transaction", priority = 3)
+    @Parameters({"id"})
+    public void updateTransaction(String id)
+    {
+        this.transactions_steps.getTransactionApiEndpoint();
+        TransactionData.generateAmount();
+        this.transactions_steps.updateTransaction(id, TransactionData.AMOUNT);
+        Assert.assertEquals(this.transactions_steps.getStatusCode(), 200, STATUS_MSG);
     }
 
     private boolean isEmailDuplicated(List<Transaction>transactions, Transaction transaction)
