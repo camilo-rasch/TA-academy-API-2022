@@ -13,6 +13,7 @@ import java.util.List;
 public class TransactionTest
 {
     private static String STATUS_MSG = "Status is not correct";
+    private static String EMAIL_MSG = "Email is duplicated";
     private Transactions transactions_steps;
 
     @BeforeMethod
@@ -43,7 +44,10 @@ public class TransactionTest
         Assert.assertTrue(isEmpty, "Is not empty");
     }
 
-    @Test(description = "Verify all transactions that will be created doesn´t have duplicated emails", dataProviderClass = TransactionData.class, dataProvider = "transactions")
+    @Test(description = "Verify all transactions that will be created doesn´t have duplicated emails",
+            dataProviderClass = TransactionData.class,
+            dataProvider = "transactions",
+    enabled = false)
     public void saveUniqueTransactions(Transaction transaction)
     {
         transactions_steps.getTransactionApiEndpoint();
@@ -58,6 +62,28 @@ public class TransactionTest
         }
 
         Assert.assertFalse(duplicity, "Email is duplicated");
+    }
+
+    @Test(description = "Verify all transactions are unique")
+    public void checkUniqueTransactions()
+    {
+        transactions_steps.getTransactionApiEndpoint();
+        transactions_steps.getTransactions();
+
+        List<Transaction>transactions = this.transactions_steps.getTransactionsList();
+
+        boolean uniqueEmails = true;
+
+        for(int i = 0; i < transactions.size(); i++)
+        {
+            for(int j = i + 1; j < transactions.size(); j++)
+            {
+                if(transactions.get(i).getEmail().equals(transactions.get(j).getEmail()))
+                uniqueEmails = false;
+            }
+        }
+
+        Assert.assertTrue(uniqueEmails, EMAIL_MSG);
     }
 
     private boolean isEmailDuplicated(List<Transaction>transactions, Transaction transaction)
