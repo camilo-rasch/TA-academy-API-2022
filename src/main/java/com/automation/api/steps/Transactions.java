@@ -93,6 +93,16 @@ public class Transactions
         }
     }
 
+    public List<Transaction>getTransactionsList()
+    {
+        try {
+            return response.then().extract().response().jsonPath().getList("$", Transaction.class);
+        }catch (Exception e)
+        {
+            return null;
+        }
+    }
+
 
     public Transaction getTransactionResponse() {
         return response.then().extract().as(Transaction.class);

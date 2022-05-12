@@ -22,7 +22,7 @@ public class TransactionData
     private static final String[]countries;
     private static final int countriesBound;
 
-    public static String ID;
+    public static int ID;
     public static String FIRST_NAME;
     public static String LAST_NAME;
     public static float AMOUNT;
@@ -45,8 +45,8 @@ public class TransactionData
         countries = new String[]{"Colombia", "Russia", "United States", "Germany"};
         countriesBound = 4;
 
-        ID = "0";
-        AMOUNT = 0;
+        ID = 0;
+        AMOUNT = 0.0f;
         TRANSACTION_TYPE = EMAIL = COUNTRY = TELEPHONE = ACCOUNT_NUMBER = "";
         ACTIVE = true;
     }
@@ -70,8 +70,7 @@ public class TransactionData
 
     private static Transaction createTransaction()
     {
-        int temporalIndex = Integer.parseInt(ID);
-        ID = Integer.toString(temporalIndex++);
+        ID++;
         generateFirstName();
         generateLastName();
         generateAmount();
@@ -80,7 +79,7 @@ public class TransactionData
         generateCountry();
         generateMutableNumber(NUMBER_TYPE.PHONE_NUMBER);
         generateMutableNumber(NUMBER_TYPE.ACCOUNT_NUMBER);
-        return new Transaction(ID, FIRST_NAME, LAST_NAME, AMOUNT, TRANSACTION_TYPE,
+        return new Transaction(String.valueOf(ID), FIRST_NAME, LAST_NAME, AMOUNT, TRANSACTION_TYPE,
                 EMAIL, ACTIVE, COUNTRY, TELEPHONE, ACCOUNT_NUMBER);
     }
 
